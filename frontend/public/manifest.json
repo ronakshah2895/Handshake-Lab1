@@ -3,7 +3,7 @@
   "name": "Handshake",
   "icons": [
     {
-      "src": "short-logo.png",
+      "src": "images/short-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
