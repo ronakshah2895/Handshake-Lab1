@@ -2,9 +2,11 @@ const express = require('express');
 const session = require('express-session');
 const multer = require('multer');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const app = express();
 const port = 3001;
+dotenv.config();
 
 app.use(cors({
   origin: ['http://localhost:3000'],

@@ -1,9 +1,5 @@
 module.exports = (sequelize, DataTypes) => sequelize.define('user', {
-  first_name: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  last_name: {
+  name: {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
@@ -17,6 +13,14 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
   },
   college: {
     type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+  location: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+  is_company: {
+    type: DataTypes.BOOLEAN(),
     allowNull: false,
   },
 });
