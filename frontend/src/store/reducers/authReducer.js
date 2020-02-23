@@ -1,5 +1,6 @@
 const initialState = {
   loggedIn: false,
+  loginError: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -8,6 +9,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loggedIn: true,
+        loginError: false,
+      };
+    case 'LOGIN_ERROR':
+      return {
+        ...state,
+        loginError: true,
       };
     default:
       return {
