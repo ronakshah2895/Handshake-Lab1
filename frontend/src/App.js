@@ -7,9 +7,10 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import Header from './common/Header';
-import Home from './common/Home';
-import Login from './common/Login';
+import Header from './common/Header/Header';
+import Home from './common/Landing/Landing';
+import Login from './common/Login/Login';
+import Register from './common/Register/Register';
 import * as authActions from './store/actions/authActions';
 
 class App extends React.Component {
@@ -27,6 +28,7 @@ class App extends React.Component {
         { !loggedIn && (
           <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
             <Route exact path="/" component={Home} />
             <Redirect from="/" to="/" />
           </Switch>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import * as authActions from '../store/actions/authActions';
+import * as authActions from '../../store/actions/authActions';
 
 function Header(props) {
   const { loggedIn, logout } = props;
