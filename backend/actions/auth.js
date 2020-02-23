@@ -26,6 +26,10 @@ function logoutHandler(req, res) {
   res.send({ res: 'Success' });
 }
 
+function isLoggedIn(req, res) {
+  res.send({ logged_in: !!req.user });
+}
+
 module.exports = {
-  loginHandler, serializeUser, deserializeUser, logoutHandler,
+  loginHandler, serializeUser, deserializeUser, logoutHandler, isLoggedIn,
 };

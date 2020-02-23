@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+import * as authActions from '../store/actions/authActions';
 
-function Header() {
+function Header(props) {
+  const { loggedIn, logout } = props;
   return (
     <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
@@ -18,14 +21,33 @@ function Header() {
             <NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink>
           </li>
         </ul>
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink exact className="nav-link" activeClassName="active" to="/login">Login</NavLink>
-          </li>
-        </ul>
+        { loggedIn && (
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink exact onClick={logout} className="nav-link" activeClassName="active" to="/">Logout</NavLink>
+            </li>
+          </ul>
+        )}
+        { !loggedIn && (
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink exact className="nav-link" activeClassName="active" to="/login">Login</NavLink>
+            </li>
+          </ul>
+        )}
       </div>
     </nav>
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+  loggedIn: state.authReducer.loggedIn,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => {
+    dispatch(authActions.logout());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

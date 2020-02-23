@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 const {
-  loginHandler, serializeUser, deserializeUser, logoutHandler,
+  loginHandler, serializeUser, deserializeUser, logoutHandler, isLoggedIn,
 } = require('../actions/auth');
 
 app.use(passport.initialize());
@@ -21,6 +21,8 @@ passport.deserializeUser(deserializeUser);
 app.post('/login', passport.authenticate('local'), (req, res) => {
   res.send({ status: 'Success' });
 });
+
+app.post('/logged_in', isLoggedIn);
 
 app.get('/logout', logoutHandler);
 
