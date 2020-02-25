@@ -7,7 +7,7 @@ import './Login.css';
 function Login(props) {
   const { loginError, login } = props;
   return (
-    <div className="text-center vertical-align">
+    <div className="LOGIN text-center vertical-align">
       <form onSubmit={login} className="form-signin">
         <img className="mb-4" alt="" src="/images/short-logo.png" width="72" height="72" />
         <h3 className="mb-3 font-weight-normal">Sign In</h3>
@@ -15,7 +15,7 @@ function Login(props) {
           <div className="alert alert-danger" role="alert">
             Invalid Username/Password
           </div>
-        ) }
+        )}
         <input type="email" name="username" id="inputEmail" className="form-control" placeholder="Email Address" required />
         <input type="password" name="password" id="inputPass" className="form-control" placeholder="Password" required />
         <div className="text-right">

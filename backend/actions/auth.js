@@ -37,6 +37,8 @@ function registerHandler(req, res) {
       password: hash,
     }).then(() => {
       res.send({ res: 'Success' });
+    }, () => {
+      res.status(400).send({ res: 'Failed' });
     });
   });
 }

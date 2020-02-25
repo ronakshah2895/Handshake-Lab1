@@ -1,23 +1,23 @@
-.vertical-align {
+.LOGIN.vertical-align {
   display: flex;
   align-items: center;
   height: 80vh;
 }
 
-.form-signin {
+.LOGIN .form-signin {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
 }
 
-#inputEmail {
+.LOGIN .form-signin input:not(:last-of-type) {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-#inputPass {
+.LOGIN .form-signin input:not(:first-of-type) {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }

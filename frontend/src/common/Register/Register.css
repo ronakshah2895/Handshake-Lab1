@@ -1,0 +1,23 @@
+.REGISTER.vertical-align {
+  display: flex;
+  align-items: center;
+  height: 80vh;
+}
+
+.REGISTER .form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.REGISTER .form-signin input:not(:last-of-type) {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.REGISTER .form-signin input:not(:first-of-type) {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}

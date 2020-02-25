@@ -1,29 +1,34 @@
 import { sendPost, get } from '../../helpers/communicationHelper';
 
-const loginHandler = (error) => ({
-  type: error ? 'LOGIN_ERROR' : 'LOGIN',
-});
-
-const logoutHandler = () => ({
-  type: 'LOGOUT',
-});
-
 export const login = (ev) => (dispatch) => {
   sendPost('auth/login', ev.target).then(() => {
-    dispatch(loginHandler(false));
+    dispatch({ type: 'LOGIN' });
   }, () => {
-    dispatch(loginHandler(true));
+    dispatch({ type: 'LOGIN_ERROR' });
   });
 };
 
+export const register = (ev, history) => (dispatch) => {
+  sendPost('auth/register', ev.target).then(() => {
+    dispatch({ type: 'REGISTER' });
+    history.push('/login');
+  }, () => {
+    dispatch({ type: 'REGISTER_ERROR' });
+  });
+};
+
+export const toggleCompanyRadio = () => ({
+  type: 'COMPANY_TOGGLE',
+});
+
 export const isLoggedIn = () => (dispatch) => {
   sendPost('auth/logged_in').then((data) => {
-    if (data.logged_in) dispatch(loginHandler(false));
+    if (data.logged_in) dispatch({ type: 'LOGIN' });
   });
 };
 
 export const logout = () => (dispatch) => {
   get('auth/logout').then(() => {
-    dispatch(logoutHandler());
+    dispatch({ type: 'LOGOUT' });
   });
 };
