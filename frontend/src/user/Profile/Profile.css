@@ -1,0 +1,31 @@
+.PROFILE .form-control {
+  margin: 4px;
+}
+
+.PROFILE .editIcon {
+  position: absolute;
+  right: 4px;
+  top: 0;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.PROFILE .card-body {
+  position: relative;
+}
+
+.PROFILE .card-body .badge.badge-pill {
+  margin: 4px;
+  font-size: 14px;
+}
+
+.PROFILE .card-body .badge.badge-pill .remove-icon {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.PROFILE .skill-form #inputSkill {
+  display: inline-block;
+  width: calc(100% - 85px);
+  vertical-align: middle;
+}

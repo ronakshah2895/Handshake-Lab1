@@ -16,13 +16,14 @@ function Header(props) {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink>
-          </li>
-        </ul>
         { loggedIn && (
           <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink exact className="nav-link" activeClassName="active" to="/profile">Profile</NavLink>
+            </li>
             <li className="nav-item">
               <NavLink exact onClick={logout} className="nav-link" activeClassName="active" to="/">Logout</NavLink>
             </li>
@@ -30,6 +31,9 @@ function Header(props) {
         )}
         { !loggedIn && (
           <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink>
+            </li>
             <li className="nav-item">
               <NavLink exact className="nav-link" activeClassName="active" to="/login">Login</NavLink>
             </li>

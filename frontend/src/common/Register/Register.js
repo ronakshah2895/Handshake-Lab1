@@ -17,8 +17,8 @@ function Register(props) {
             Invalid User details
           </div>
         )}
-        <input type="text" name="name" id="inputEmail" className="form-control" placeholder="Name" required />
-        <input type="email" name="email" id="inputName" className="form-control" placeholder="Email Address" required />
+        <input type="text" name="name" id="inputName" className="form-control" placeholder="Name" required />
+        <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email Address" required />
         <input type="password" name="password" id="inputPass" className="form-control" placeholder="Password" required />
         <span className="mr-5">Are you a company?</span>
         <div className="form-check form-check-inline">
@@ -56,8 +56,7 @@ const mapDispatchToProps = (dispatch) => ({
     ev.preventDefault();
     dispatch(authActions.register(ev, history));
   },
-  toggleCompanyRadio: (ev) => {
-    ev.preventDefault();
+  toggleCompanyRadio: () => {
     dispatch(authActions.toggleCompanyRadio());
   },
 });
