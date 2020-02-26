@@ -18,6 +18,15 @@ export const addSkill = (ev) => (dispatch) => {
       skill,
     });
   }, () => {
-    console.log("Failed");
+    dispatch({ type: 'ADD_SKILL_ERROR' });
+  });
+};
+
+export const removeSkill = (skill) => (dispatch) => {
+  sendPost('profile/remove_skill', { skill }).then(() => {
+    dispatch({
+      type: 'REMOVE_SKILL',
+      skill,
+    });
   });
 };

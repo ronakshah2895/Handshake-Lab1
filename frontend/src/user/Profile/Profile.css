@@ -29,3 +29,10 @@
   width: calc(100% - 85px);
   vertical-align: middle;
 }
+
+.PROFILE .add-skill-error{
+  font-size: 12px;
+  position: relative;
+  bottom: 8px;
+  left: 4px;
+}

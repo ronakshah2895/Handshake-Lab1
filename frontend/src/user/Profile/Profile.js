@@ -10,7 +10,9 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { editProfile, skills, addSkill } = this.props;
+    const {
+      editProfile, skills, addSkillError, addSkill, removeSkill,
+    } = this.props;
     return (
       <div className="PROFILE container">
         <div className="row">
@@ -45,12 +47,15 @@ class Profile extends React.Component {
                 { skills.map((skill) => (
                   <span className="badge badge-pill badge-primary" key={skill}>
                     <span>{skill}</span>
-                    <span className="remove-icon">&times;</span>
+                    <span className="remove-icon" tabIndex="0" onClick={removeSkill.bind(null, skill)} onKeyDown={removeSkill.bind(null, skill)} role="button">&times;</span>
                   </span>
                 ))}
                 <form onSubmit={addSkill} className="skill-form">
                   <input type="text" name="skill" id="inputSkill" className="form-control" placeholder="Add Skill" required />
                   <button type="submit" className="btn btn-primary">Submit</button>
+                  {addSkillError && (
+                    <span className="text-danger add-skill-error">Skill Exists</span>
+                  )}
                 </form>
               </div>
             </div>
@@ -91,6 +96,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => ({
   skills: state.profileReducer.skills,
+  addSkillError: state.profileReducer.addSkillError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -104,6 +110,9 @@ const mapDispatchToProps = (dispatch) => ({
   addSkill: (ev) => {
     ev.preventDefault();
     dispatch(profileActions.addSkill(ev));
+  },
+  removeSkill: (skill) => {
+    dispatch(profileActions.removeSkill(skill));
   },
 });
 
