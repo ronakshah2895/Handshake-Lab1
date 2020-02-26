@@ -1,4 +1,4 @@
-const { userSkill } = require('../../models/index');
+const { User, userSkill } = require('../../models/index');
 
 function addSkill(req, res) {
   userSkill.create({
@@ -23,20 +23,39 @@ function removeSkill(req, res) {
 }
 
 function getProfile(req, res) {
-  console.log(req.user);
-  userSkill.findAll({
-    where: {
-      userId: req.user.id,
-    },
-  }).then((skills) => {
+  const email = req.body && req.body.email ? req.body.email : req.user.email;
+  User.findOne({
+    where: { email },
+    attributes: ['name', 'email', 'dob', 'location', 'phone'],
+    include: [{
+      model: userSkill,
+      attributes: ['skill'],
+    }],
+  }).then((user) => {
+    const userData = user.dataValues;
     const skillsArr = [];
-    skills.forEach((skill) => {
+    userData.user_skills.forEach((skill) => {
       skillsArr.push(skill.dataValues.skill);
     });
-    res.send(skillsArr);
+    userData.skills = skillsArr;
+    delete userData.user_skills;
+    res.send(userData);
+  });
+}
+
+function updatePersonalInfo(req, res) {
+  const updateObj = {};
+  Object.entries(req.body).forEach(([key, value]) => {
+    if (value) updateObj[key] = value;
+    else updateObj[key] = null;
+  });
+  User.update(updateObj, {
+    where: { id: req.user.id },
+  }).then(() => {
+    res.send(updateObj);
   });
 }
 
 module.exports = {
-  addSkill, removeSkill, getProfile,
+  addSkill, removeSkill, getProfile, updatePersonalInfo,
 };

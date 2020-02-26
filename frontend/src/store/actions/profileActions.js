@@ -1,10 +1,21 @@
+/* global $ */
 import { sendPost } from '../../helpers/communicationHelper';
 
-export const fetchProfileData = () => (dispatch) => {
+export const fetchProfile = () => (dispatch) => {
   sendPost('profile/get_profile').then((profile) => {
     dispatch({
+      profile,
       type: 'FETCH_PROFILE',
-      skills: profile,
+    });
+  });
+};
+
+export const updatePersonalInfo = (ev) => (dispatch) => {
+  sendPost('profile/update_personal_info', ev.target).then((updateObj) => {
+    $('.modal').modal('hide');
+    dispatch({
+      updateObj,
+      type: 'UPDATE_INFO',
     });
   });
 };

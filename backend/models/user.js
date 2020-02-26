@@ -13,6 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.CHAR(60),
       allowNull: false,
     },
+    dob: {
+      type: DataTypes.DATEONLY(),
+      allowNull: true,
+    },
+    phone: {
+      type: DataTypes.INTEGER(),
+      allowNull: true,
+    },
     college: {
       type: DataTypes.STRING(255),
       allowNull: true,

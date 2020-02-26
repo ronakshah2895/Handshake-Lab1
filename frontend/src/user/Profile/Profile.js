@@ -5,13 +5,14 @@ import './Profile.css';
 
 class Profile extends React.Component {
   componentDidMount() {
-    const { fetchProfileData } = this.props;
-    fetchProfileData();
+    const { fetchProfile } = this.props;
+    fetchProfile();
   }
 
   render() {
     const {
-      editProfile, skills, addSkillError, addSkill, removeSkill,
+      name, email, dob, location, phone, skills, addSkillError,
+      updatePersonalInfo, addSkill, removeSkill,
     } = this.props;
     return (
       <div className="PROFILE container">
@@ -21,22 +22,22 @@ class Profile extends React.Component {
               <img src="https://www.interplayit.com/wp-content/uploads/2018/10/profile-placeholder.jpg" className="card-img-top" alt="" />
               <div className="card-body text-center">
                 <span className="editIcon" aria-hidden="true" data-toggle="modal" data-target="#profileEdit">&#9998;</span>
-                <h3>Ronak Shah</h3>
+                <h3>{name}</h3>
                 <p>
                   <span className="font-weight-bold">Email: </span>
-                  <span>rony@test.com</span>
+                  <span>{email}</span>
                 </p>
                 <p>
                   <span className="font-weight-bold">DOB: </span>
-                  <span>01/28/1995</span>
+                  <span>{dob || 'Not Set'}</span>
                 </p>
                 <p>
                   <span className="font-weight-bold">Location: </span>
-                  <span>San Jose, California</span>
+                  <span>{location || 'Not Set'}</span>
                 </p>
                 <p>
                   <span className="font-weight-bold">Phone: </span>
-                  <span>6462208232</span>
+                  <span>{phone || 'Not Set'}</span>
                 </p>
               </div>
             </div>
@@ -74,12 +75,12 @@ class Profile extends React.Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form onSubmit={editProfile}>
+              <form onSubmit={updatePersonalInfo}>
                 <div className="modal-body">
-                  <input type="text" name="name" id="inputName" className="form-control" placeholder="Name" required />
-                  <input type="date" name="dob" id="inputDOB" className="form-control" placeholder="DOB" />
-                  <input type="text" name="location" id="inputLocation" className="form-control" placeholder="Location" />
-                  <input type="number" name="phone" id="inputPhone" className="form-control" placeholder="Phone" />
+                  <input type="text" name="name" id="inputName" defaultValue={name} className="form-control" placeholder="Name" required />
+                  <input type="date" name="dob" id="inputDOB" defaultValue={dob} className="form-control" placeholder="DOB" />
+                  <input type="text" name="location" id="inputLocation" defaultValue={location} className="form-control" placeholder="Location" />
+                  <input type="number" name="phone" id="inputPhone" defaultValue={phone} className="form-control" placeholder="Phone" />
                 </div>
                 <div className="modal-footer">
                   <button type="submit" className="btn btn-primary">Save changes</button>
@@ -95,17 +96,22 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  name: state.profileReducer.name,
+  email: state.profileReducer.email,
+  dob: state.profileReducer.dob,
+  location: state.profileReducer.location,
+  phone: state.profileReducer.phone,
   skills: state.profileReducer.skills,
   addSkillError: state.profileReducer.addSkillError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  editProfile: (ev) => {
+  updatePersonalInfo: (ev) => {
     ev.preventDefault();
-    console.log('Form Submitted');
+    dispatch(profileActions.updatePersonalInfo(ev));
   },
-  fetchProfileData: () => {
-    dispatch(profileActions.fetchProfileData());
+  fetchProfile: () => {
+    dispatch(profileActions.fetchProfile());
   },
   addSkill: (ev) => {
     ev.preventDefault();
