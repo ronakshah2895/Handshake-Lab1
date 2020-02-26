@@ -7,9 +7,6 @@ const {
   loginHandler, serializeUser, deserializeUser, logoutHandler, registerHandler, isLoggedIn,
 } = require('../actions/auth');
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 passport.use(new LocalStrategy({
   usernameField: 'username',
   passwordField: 'password',
