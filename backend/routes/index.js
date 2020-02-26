@@ -1,6 +1,11 @@
 const express = require('express');
 
-module.exports = express();
-const app = module.exports;
+const authRoutes = require('./auth');
+const profileRoutes = require('./user/profile');
 
-app.use('/auth', require('./auth'));
+const app = express();
+
+app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
+
+module.exports = app;

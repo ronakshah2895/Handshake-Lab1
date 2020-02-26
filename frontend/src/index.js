@@ -6,10 +6,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/authReducer';
+import profileReducer from './store/reducers/profileReducer';
 import App from './App';
 
 const rootReducer = combineReducers({
-  authReducer,
+  authReducer, profileReducer,
 });
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
