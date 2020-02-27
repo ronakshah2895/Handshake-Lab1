@@ -22,7 +22,7 @@ class Profile extends React.Component {
     return (
       <div className="PROFILE container">
         <div className="row">
-          <div className="col-3">
+          <div className="col-4">
             <div className="card">
               <form className="profile-image-input">
                 <input type="file" name="profile_image" accept="image/*" onChange={addProfileImage} ref={this.profileImageInput} />
@@ -72,7 +72,7 @@ class Profile extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-9">
+          <div className="col-8">
             <div className="card">
               <div className="card-header">Education</div>
               <div className="card-body">
