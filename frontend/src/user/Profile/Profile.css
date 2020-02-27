@@ -1,3 +1,7 @@
+.PROFILE .card {
+  margin: 8px 0;
+}
+
 .PROFILE .form-control {
   margin: 4px;
 }

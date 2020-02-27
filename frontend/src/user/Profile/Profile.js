@@ -17,7 +17,7 @@ class Profile extends React.Component {
   render() {
     const {
       name, email, dob, profileImage, location, phone, skills, addSkillError,
-      updatePersonalInfo, addSkill, removeSkill, addProfileImage,
+      updatePersonalInfo, addSkill, removeSkill, addProfileImage, addEducation,
     } = this.props;
     return (
       <div className="PROFILE container">
@@ -73,7 +73,40 @@ class Profile extends React.Component {
             </div>
           </div>
           <div className="col-9">
-            <h1>Hello World!</h1>
+            <div className="card">
+              <div className="card-header">Education</div>
+              <div className="card-body">
+                <div>
+                  <h5 className="card-title">San Jose State University</h5>
+                  <span className="card-text">
+                    <span className="font-weight-bold">Degree: </span>
+                    Masters of Science
+                  </span>
+                  <br />
+                  <span className="card-text">
+                    <span className="font-weight-bold">Year of Passing: </span>
+                    2019
+                  </span>
+                  <br />
+                  <span className="card-text">
+                    <span className="font-weight-bold">Major: </span>
+                    Software Engineering
+                  </span>
+                  <br />
+                  <span className="card-text">
+                    <span className="font-weight-bold">GPA: </span>
+                    3.33
+                  </span>
+                  <br />
+                  <span className="card-text">
+                    <span className="font-weight-bold">Location: </span>
+                    San Jose
+                  </span>
+                  <hr />
+                </div>
+                <button type="button" data-toggle="modal" data-target="#addEducation" className="btn btn-primary">Add Education</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -92,6 +125,33 @@ class Profile extends React.Component {
                   <input type="date" name="dob" id="inputDOB" defaultValue={dob} className="form-control" placeholder="DOB" />
                   <input type="text" name="location" id="inputLocation" defaultValue={location} className="form-control" placeholder="Location" />
                   <input type="number" name="phone" id="inputPhone" defaultValue={phone} className="form-control" placeholder="Phone" />
+                </div>
+                <div className="modal-footer">
+                  <button type="submit" className="btn btn-primary">Save changes</button>
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className="modal" id="addEducation" tabIndex="-1" role="dialog">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Add Education</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form onSubmit={addEducation}>
+                <div className="modal-body">
+                  <input type="text" name="college" id="inputCollege" className="form-control" placeholder="College Name" required />
+                  <input type="text" name="degree" id="inputDegree" className="form-control" placeholder="Degree" required />
+                  <input type="number" name="year_of_passing" id="inputYear" className="form-control" placeholder="Year of Passing" required />
+                  <input type="text" name="major" id="inputMajor" className="form-control" placeholder="Major" required />
+                  <input type="number" name="cgpa" id="inputGPA" className="form-control" placeholder="GPA" step="0.01" required />
+                  <input type="text" name="location" id="inputLocation" className="form-control" placeholder="Location" required />
                 </div>
                 <div className="modal-footer">
                   <button type="submit" className="btn btn-primary">Save changes</button>
@@ -134,6 +194,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   addProfileImage: (ev) => {
     dispatch(profileActions.addProfileImage(ev));
+  },
+  addEducation: (ev) => {
+    console.log('Added');
   },
 });
 
