@@ -16,7 +16,7 @@ class Profile extends React.Component {
 
   render() {
     const {
-      name, email, dob, profileImage, location, phone, skills, addSkillError,
+      name, email, dob, profileImage, location, phone, skills, addSkillError, educations,
       updatePersonalInfo, addSkill, removeSkill, addProfileImage, addEducation,
     } = this.props;
     return (
@@ -76,34 +76,39 @@ class Profile extends React.Component {
             <div className="card">
               <div className="card-header">Education</div>
               <div className="card-body">
-                <div>
-                  <h5 className="card-title">San Jose State University</h5>
-                  <span className="card-text">
-                    <span className="font-weight-bold">Degree: </span>
-                    Masters of Science
-                  </span>
-                  <br />
-                  <span className="card-text">
-                    <span className="font-weight-bold">Year of Passing: </span>
-                    2019
-                  </span>
-                  <br />
-                  <span className="card-text">
-                    <span className="font-weight-bold">Major: </span>
-                    Software Engineering
-                  </span>
-                  <br />
-                  <span className="card-text">
-                    <span className="font-weight-bold">GPA: </span>
-                    3.33
-                  </span>
-                  <br />
-                  <span className="card-text">
-                    <span className="font-weight-bold">Location: </span>
-                    San Jose
-                  </span>
-                  <hr />
-                </div>
+                { educations.map((educationData, index) => {
+                  const key = `education-${index}`;
+                  return (
+                    <div key={key}>
+                      <h5 className="card-title">{educationData.college}</h5>
+                      <span className="card-text">
+                        <span className="font-weight-bold">Degree: </span>
+                        {educationData.degree}
+                      </span>
+                      <br />
+                      <span className="card-text">
+                        <span className="font-weight-bold">Year of Passing: </span>
+                        {educationData.year_of_passing}
+                      </span>
+                      <br />
+                      <span className="card-text">
+                        <span className="font-weight-bold">Major: </span>
+                        {educationData.major}
+                      </span>
+                      <br />
+                      <span className="card-text">
+                        <span className="font-weight-bold">GPA: </span>
+                        {educationData.cgpa}
+                      </span>
+                      <br />
+                      <span className="card-text">
+                        <span className="font-weight-bold">Location: </span>
+                        {educationData.location}
+                      </span>
+                      <hr />
+                    </div>
+                  );
+                })}
                 <button type="button" data-toggle="modal" data-target="#addEducation" className="btn btn-primary">Add Education</button>
               </div>
             </div>
@@ -175,6 +180,7 @@ const mapStateToProps = (state) => ({
   phone: state.profileReducer.phone,
   skills: state.profileReducer.skills,
   addSkillError: state.profileReducer.addSkillError,
+  educations: state.profileReducer.educations,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -196,7 +202,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(profileActions.addProfileImage(ev));
   },
   addEducation: (ev) => {
-    console.log('Added');
+    ev.preventDefault();
+    dispatch(profileActions.addEducation(ev));
   },
 });
 

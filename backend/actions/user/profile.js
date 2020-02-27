@@ -1,6 +1,6 @@
-const { v1:uuidv1 } = require('uuid');
+const { v1: uuidv1 } = require('uuid');
 const fs = require('fs');
-const { User, userSkill } = require('../../models/index');
+const { User, userSkill, userEducation } = require('../../models/index');
 
 function addSkill(req, res) {
   userSkill.create({
@@ -32,6 +32,9 @@ function getProfile(req, res) {
     include: [{
       model: userSkill,
       attributes: ['skill'],
+    }, {
+      model: userEducation,
+      attributes: ['id', 'college', 'location', 'degree', 'major', 'year_of_passing', 'cgpa'],
     }],
   }).then((user) => {
     const userData = user.dataValues;
@@ -40,7 +43,9 @@ function getProfile(req, res) {
       skillsArr.push(skill.dataValues.skill);
     });
     userData.skills = skillsArr;
+    userData.educations = userData.user_educations;
     delete userData.user_skills;
+    delete userData.user_educations;
     res.send(userData);
   });
 }
@@ -77,6 +82,15 @@ function addProfileImage(req, res) {
   });
 }
 
+function addEducation(req, res) {
+  userEducation.create({
+    ...req.body,
+    userId: req.user.id,
+  }).then(() => {
+    res.send(req.body);
+  });
+}
+
 module.exports = {
-  addSkill, removeSkill, getProfile, updatePersonalInfo, addProfileImage,
+  addSkill, removeSkill, getProfile, updatePersonalInfo, addProfileImage, addEducation,
 };

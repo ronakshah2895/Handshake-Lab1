@@ -7,6 +7,7 @@ const initialState = {
   phone: null,
   skills: [],
   addSkillError: false,
+  educations: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +42,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         profile_image: action.imagePath,
+      };
+    case 'ADD_EDUCATION':
+      return {
+        ...state,
+        educations: state.educations.concat([action.educationData]),
       };
     default:
       return {

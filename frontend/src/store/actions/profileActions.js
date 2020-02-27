@@ -49,3 +49,12 @@ export const addProfileImage = (ev) => (dispatch) => {
     dispatch({ type: 'ADD_PROFILE_IMAGE', imagePath });
   });
 };
+
+export const addEducation = (ev) => (dispatch) => {
+  const { target } = ev;
+  sendPost('profile/add_education', target).then((educationData) => {
+    target.reset();
+    $('.modal').modal('hide');
+    dispatch({ type: 'ADD_EDUCATION', educationData });
+  });
+};

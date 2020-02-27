@@ -77,5 +77,5 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.hasMany(userSkill);
   User.hasMany(userEducation);
-  return { User, userSkill };
+  return { User, userSkill, userEducation };
 };
