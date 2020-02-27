@@ -16,7 +16,7 @@ class Profile extends React.Component {
 
   render() {
     const {
-      name, email, dob, location, phone, skills, addSkillError,
+      name, email, dob, profileImage, location, phone, skills, addSkillError,
       updatePersonalInfo, addSkill, removeSkill, addProfileImage,
     } = this.props;
     return (
@@ -29,7 +29,7 @@ class Profile extends React.Component {
               </form>
               <div className="image-container">
                 <div className="image-hover-background" tabIndex="0" onClick={this.showProfileImageInput.bind(this)} onKeyDown={this.showProfileImageInput.bind(this)} role="button">.</div>
-                <img src="https://www.interplayit.com/wp-content/uploads/2018/10/profile-placeholder.jpg" className="card-img-top" alt="" />
+                <img src={profileImage} className="card-img-top" alt="" />
               </div>
               <div className="card-body text-center">
                 <span className="editIcon" aria-hidden="true" data-toggle="modal" data-target="#profileEdit">&#9998;</span>
@@ -110,6 +110,7 @@ const mapStateToProps = (state) => ({
   name: state.profileReducer.name,
   email: state.profileReducer.email,
   dob: state.profileReducer.dob,
+  profileImage: process.env.REACT_APP_SERVER_ROOT + state.profileReducer.profile_image,
   location: state.profileReducer.location,
   phone: state.profileReducer.phone,
   skills: state.profileReducer.skills,

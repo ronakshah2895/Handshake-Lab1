@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
+    profile_image: {
+      type: DataTypes.STRING(255),
+      defaultValue: 'images/default_profile_image.jpg',
+      allowNull: false,
+    },
     is_company: {
       type: DataTypes.BOOLEAN(),
       allowNull: false,

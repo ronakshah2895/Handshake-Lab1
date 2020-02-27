@@ -1,3 +1,5 @@
+const { v1:uuidv1 } = require('uuid');
+const fs = require('fs');
 const { User, userSkill } = require('../../models/index');
 
 function addSkill(req, res) {
@@ -26,7 +28,7 @@ function getProfile(req, res) {
   const email = req.body && req.body.email ? req.body.email : req.user.email;
   User.findOne({
     where: { email },
-    attributes: ['name', 'email', 'dob', 'location', 'phone'],
+    attributes: ['name', 'email', 'dob', 'location', 'phone', 'profile_image'],
     include: [{
       model: userSkill,
       attributes: ['skill'],
@@ -56,6 +58,22 @@ function updatePersonalInfo(req, res) {
   });
 }
 
+function addProfileImage(req, res) {
+  const profileImage = req.files[0];
+  const fileExt = profileImage.originalname.substring(profileImage.originalname.lastIndexOf('.'));
+  const path = `images/${uuidv1() + fileExt}`;
+  fs.writeFile(`public/${path}`, profileImage.buffer, () => {
+    User.update({ profile_image: path }, {
+      where: { id: req.user.id },
+    }).then(() => {
+      if (!req.user.profile_image.includes('default_profile_image.jpg')) {
+        fs.unlinkSync(`public/${req.user.profile_image}`);
+      }
+      res.send(path);
+    });
+  });
+}
+
 module.exports = {
-  addSkill, removeSkill, getProfile, updatePersonalInfo,
+  addSkill, removeSkill, getProfile, updatePersonalInfo, addProfileImage,
 };

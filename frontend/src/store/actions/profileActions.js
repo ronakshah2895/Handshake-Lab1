@@ -43,6 +43,9 @@ export const removeSkill = (skill) => (dispatch) => {
 };
 
 export const addProfileImage = (ev) => (dispatch) => {
-  console.log(ev.target.files);
-  $(ev.target).parent().trigger('reset');
+  const formEl = $(ev.target).parent()[0];
+  sendPost('profile/add_profile_image', formEl).then((imagePath) => {
+    formEl.reset();
+    dispatch({ type: 'ADD_PROFILE_IMAGE', imagePath });
+  });
 };

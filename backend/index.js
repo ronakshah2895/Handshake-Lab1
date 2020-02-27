@@ -22,6 +22,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(multer().any());
+app.use(express.static('public'));
 
 app.use(require('./routes'));
 

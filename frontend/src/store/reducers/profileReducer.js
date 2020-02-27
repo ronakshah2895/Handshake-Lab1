@@ -2,6 +2,7 @@ const initialState = {
   name: null,
   email: null,
   dob: null,
+  profile_image: null,
   location: null,
   phone: null,
   skills: [],
@@ -35,6 +36,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.updateObj,
+      };
+    case 'ADD_PROFILE_IMAGE':
+      return {
+        ...state,
+        profile_image: action.imagePath,
       };
     default:
       return {
