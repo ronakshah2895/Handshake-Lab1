@@ -10,6 +10,26 @@
   font-size: 18px;
 }
 
+.PROFILE .profile-image-input {
+  display: none;
+}
+
+.PROFILE .image-container {
+  position: relative;
+}
+
+.PROFILE .image-hover-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.PROFILE .image-hover-background:hover {
+  opacity: 0.5;
+  background-color: #fff;
+}
+
 .PROFILE .card-body {
   position: relative;
 }

@@ -7,19 +7,30 @@ class Profile extends React.Component {
   componentDidMount() {
     const { fetchProfile } = this.props;
     fetchProfile();
+    this.profileImageInput = React.createRef();
+  }
+
+  showProfileImageInput() {
+    this.profileImageInput.current.click();
   }
 
   render() {
     const {
       name, email, dob, location, phone, skills, addSkillError,
-      updatePersonalInfo, addSkill, removeSkill,
+      updatePersonalInfo, addSkill, removeSkill, addProfileImage,
     } = this.props;
     return (
       <div className="PROFILE container">
         <div className="row">
           <div className="col-3">
             <div className="card">
-              <img src="https://www.interplayit.com/wp-content/uploads/2018/10/profile-placeholder.jpg" className="card-img-top" alt="" />
+              <form className="profile-image-input">
+                <input type="file" name="profile_image" accept="image/*" onChange={addProfileImage} ref={this.profileImageInput} />
+              </form>
+              <div className="image-container">
+                <div className="image-hover-background" tabIndex="0" onClick={this.showProfileImageInput.bind(this)} onKeyDown={this.showProfileImageInput.bind(this)} role="button">.</div>
+                <img src="https://www.interplayit.com/wp-content/uploads/2018/10/profile-placeholder.jpg" className="card-img-top" alt="" />
+              </div>
               <div className="card-body text-center">
                 <span className="editIcon" aria-hidden="true" data-toggle="modal" data-target="#profileEdit">&#9998;</span>
                 <h3>{name}</h3>
@@ -119,6 +130,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   removeSkill: (skill) => {
     dispatch(profileActions.removeSkill(skill));
+  },
+  addProfileImage: (ev) => {
+    dispatch(profileActions.addProfileImage(ev));
   },
 });
 

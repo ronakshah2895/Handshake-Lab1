@@ -41,3 +41,8 @@ export const removeSkill = (skill) => (dispatch) => {
     });
   });
 };
+
+export const addProfileImage = (ev) => (dispatch) => {
+  console.log(ev.target.files);
+  $(ev.target).parent().trigger('reset');
+};
