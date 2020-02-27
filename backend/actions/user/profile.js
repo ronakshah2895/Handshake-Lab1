@@ -60,8 +60,11 @@ function updatePersonalInfo(req, res) {
 
 function addProfileImage(req, res) {
   const profileImage = req.files[0];
+  if (!fs.existsSync('public/images/profile_images')) {
+    fs.mkdirSync('public/images/profile_images');
+  }
   const fileExt = profileImage.originalname.substring(profileImage.originalname.lastIndexOf('.'));
-  const path = `images/${uuidv1() + fileExt}`;
+  const path = `images/profile_images/${uuidv1() + fileExt}`;
   fs.writeFile(`public/${path}`, profileImage.buffer, () => {
     User.update({ profile_image: path }, {
       where: { id: req.user.id },
