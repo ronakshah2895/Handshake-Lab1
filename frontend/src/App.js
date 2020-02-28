@@ -11,7 +11,8 @@ import Header from './common/Header/Header';
 import Home from './common/Landing/Landing';
 import Login from './common/Login/Login';
 import Register from './common/Register/Register';
-import Profile from './user/Profile/Profile';
+import Profile from './common/Profile/Profile';
+import Students from './common/Students/Students';
 import * as authActions from './store/actions/authActions';
 
 class App extends React.Component {
@@ -38,6 +39,7 @@ class App extends React.Component {
         { loggedIn && (
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/students" component={Students} />
             <Route exact path="/profile" component={Profile} />
             <Redirect from="/" to="/" />
           </Switch>

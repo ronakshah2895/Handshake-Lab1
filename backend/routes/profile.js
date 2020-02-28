@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-const profileActions = require('../../actions/user/profile');
+const profileActions = require('../actions/profile');
 
 app.post('/get_profile', profileActions.getProfile);
 app.post('/add_skill', profileActions.addSkill);

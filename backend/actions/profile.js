@@ -2,7 +2,7 @@ const { v1: uuidv1 } = require('uuid');
 const fs = require('fs');
 const {
   User, userSkill, userEducation, userExperience,
-} = require('../../models/index');
+} = require('../models/index');
 
 function addSkill(req, res) {
   userSkill.create({
