@@ -44,7 +44,7 @@ function registerHandler(req, res) {
 }
 
 function isLoggedIn(req, res) {
-  res.send({ logged_in: !!req.user });
+  res.send({ logged_in: !!req.user, is_company: req.user && req.user.is_company });
 }
 
 module.exports = {

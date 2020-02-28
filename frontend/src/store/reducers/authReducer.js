@@ -3,6 +3,7 @@ const initialState = {
   loginError: false,
   registerError: false,
   isCompany: true,
+  is_company: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const reducer = (state = initialState, action) => {
         loggedIn: true,
         loginError: false,
         registerError: false,
+        is_company: action.is_company,
       };
     case 'REGISTER':
       return {
