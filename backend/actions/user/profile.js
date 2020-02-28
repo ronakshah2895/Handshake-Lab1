@@ -93,8 +93,8 @@ function addEducation(req, res) {
   userEducation.create({
     ...req.body,
     userId: req.user.id,
-  }).then(() => {
-    res.send(req.body);
+  }).then((education) => {
+    res.send(education.dataValues);
   });
 }
 
@@ -112,8 +112,8 @@ function addExperience(req, res) {
   userExperience.create({
     ...req.body,
     userId: req.user.id,
-  }).then(() => {
-    res.send(req.body);
+  }).then((experience) => {
+    res.send(experience);
   });
 }
 
