@@ -17,7 +17,9 @@ class Profile extends React.Component {
   render() {
     const {
       name, email, dob, profileImage, location, phone, skills, addSkillError, educations,
+      experiences, objective,
       updatePersonalInfo, addSkill, removeSkill, addProfileImage, addEducation,
+      removeEducation, addExperience, removeExperience, editObjective,
     } = this.props;
     return (
       <div className="PROFILE container">
@@ -72,7 +74,18 @@ class Profile extends React.Component {
               </div>
             </div>
           </div>
+
           <div className="col-8">
+            <div className="card">
+              <div className="card-header">
+                Objective
+                <span className="objectiveEdit" aria-hidden="true" data-toggle="modal" data-target="#objectiveEdit">&#9998;</span>
+              </div>
+              <div className="card-body">
+                <p>{objective || 'Not Set'}</p>
+              </div>
+            </div>
+
             <div className="card">
               <div className="card-header">Education</div>
               <div className="card-body">
@@ -80,6 +93,7 @@ class Profile extends React.Component {
                   const key = `education-${index}`;
                   return (
                     <div key={key}>
+                      <span className="ed-del-icon" tabIndex="0" onClick={removeEducation.bind(null, educationData.id)} onKeyDown={removeEducation.bind(null, educationData.id)} role="button">&#128465;</span>
                       <h5 className="card-title">{educationData.college}</h5>
                       <span className="card-text">
                         <span className="font-weight-bold">Degree: </span>
@@ -112,6 +126,44 @@ class Profile extends React.Component {
                 <button type="button" data-toggle="modal" data-target="#addEducation" className="btn btn-primary">Add Education</button>
               </div>
             </div>
+
+            <div className="card">
+              <div className="card-header">Experience</div>
+              <div className="card-body">
+                { experiences.map((experienceData, index) => {
+                  const key = `education-${index}`;
+                  return (
+                    <div key={key}>
+                      <span className="ed-del-icon" tabIndex="0" onClick={removeExperience.bind(null, experienceData.id)} onKeyDown={removeExperience.bind(null, experienceData.id)} role="button">&#128465;</span>
+                      <h5 className="card-title">{experienceData.company}</h5>
+                      <span className="card-text">
+                        <span className="font-weight-bold">Role: </span>
+                        {experienceData.title}
+                      </span>
+                      <br />
+                      <span className="card-text">
+                        <span className="font-weight-bold">Dates: </span>
+                        {experienceData.start_date}
+                        &nbsp;to&nbsp;
+                        {experienceData.end_date}
+                      </span>
+                      <br />
+                      <span className="card-text">
+                        <span className="font-weight-bold">Location: </span>
+                        {experienceData.location}
+                      </span>
+                      <br />
+                      <span className="card-text">
+                        <span className="font-weight-bold">Description: </span>
+                        {experienceData.description}
+                      </span>
+                      <hr />
+                    </div>
+                  );
+                })}
+                <button type="button" data-toggle="modal" data-target="#addExperience" className="btn btn-primary">Add Experience</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -130,6 +182,28 @@ class Profile extends React.Component {
                   <input type="date" name="dob" id="inputDOB" defaultValue={dob} className="form-control" placeholder="DOB" />
                   <input type="text" name="location" id="inputLocation" defaultValue={location} className="form-control" placeholder="Location" />
                   <input type="number" name="phone" id="inputPhone" defaultValue={phone} className="form-control" placeholder="Phone" />
+                </div>
+                <div className="modal-footer">
+                  <button type="submit" className="btn btn-primary">Save changes</button>
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className="modal" id="objectiveEdit" tabIndex="-1" role="dialog">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Edit Objective</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form onSubmit={editObjective}>
+                <div className="modal-body">
+                  <textarea name="objective" id="inputObjective" defaultValue={objective} className="form-control" placeholder="Objective" />
                 </div>
                 <div className="modal-footer">
                   <button type="submit" className="btn btn-primary">Save changes</button>
@@ -166,6 +240,33 @@ class Profile extends React.Component {
             </div>
           </div>
         </div>
+
+        <div className="modal" id="addExperience" tabIndex="-1" role="dialog">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Add Expereince</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form onSubmit={addExperience}>
+                <div className="modal-body">
+                  <input type="text" name="company" id="inputCompany" className="form-control" placeholder="Company Name" required />
+                  <input type="text" name="title" id="inputTitle" className="form-control" placeholder="Title" required />
+                  <input type="date" name="start_date" id="inputStartDate" className="form-control" placeholder="Start Date" required />
+                  <input type="date" name="end_date" id="inputEndDate" className="form-control" placeholder="End Date" required />
+                  <input type="text" name="location" id="inputLocation" className="form-control" placeholder="Location" required />
+                  <textarea name="description" id="inputDescription" className="form-control" placeholder="Description" required />
+                </div>
+                <div className="modal-footer">
+                  <button type="submit" className="btn btn-primary">Save changes</button>
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -181,6 +282,8 @@ const mapStateToProps = (state) => ({
   skills: state.profileReducer.skills,
   addSkillError: state.profileReducer.addSkillError,
   educations: state.profileReducer.educations,
+  experiences: state.profileReducer.experiences,
+  objective: state.profileReducer.objective,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -204,6 +307,20 @@ const mapDispatchToProps = (dispatch) => ({
   addEducation: (ev) => {
     ev.preventDefault();
     dispatch(profileActions.addEducation(ev));
+  },
+  removeEducation: (educationId) => {
+    dispatch(profileActions.removeEducation(educationId));
+  },
+  addExperience: (ev) => {
+    ev.preventDefault();
+    dispatch(profileActions.addExperience(ev));
+  },
+  removeExperience: (experienceId) => {
+    dispatch(profileActions.removeExperience(experienceId));
+  },
+  editObjective: (ev) => {
+    ev.preventDefault();
+    dispatch(profileActions.editObjective(ev));
   },
 });
 

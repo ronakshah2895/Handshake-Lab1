@@ -14,6 +14,11 @@
   font-size: 18px;
 }
 
+.PROFILE .objectiveEdit {
+  float: right;
+  cursor: pointer;
+}
+
 .PROFILE .profile-image-input {
   display: none;
 }
@@ -59,4 +64,9 @@
   position: relative;
   bottom: 8px;
   left: 4px;
+}
+
+.PROFILE .ed-del-icon {
+  cursor: pointer;
+  float: right;
 }

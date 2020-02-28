@@ -8,8 +8,8 @@ const sequelize = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PASSWORD, {
   host: MYSQL_HOST,
   dialect: 'mysql',
 });
-const { User, userSkill, userEducation } = require('./user')(sequelize, Sequelize);
+const userMoldels = require('./user')(sequelize, Sequelize);
 
 sequelize.sync({ alter: true });
 
-module.exports = { User, userSkill, userEducation };
+module.exports = userMoldels;

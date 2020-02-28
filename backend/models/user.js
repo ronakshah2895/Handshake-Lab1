@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'images/default_profile_image.jpg',
       allowNull: false,
     },
+    objective: {
+      type: DataTypes.TEXT(),
+      allowNull: true,
+    },
     is_company: {
       type: DataTypes.BOOLEAN(),
       allowNull: false,
@@ -75,7 +79,36 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+  const userExperience = sequelize.define('user_experience', {
+    company: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    location: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    title: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    start_date: {
+      type: DataTypes.DATEONLY(),
+      allowNull: false,
+    },
+    end_date: {
+      type: DataTypes.DATEONLY(),
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT(),
+      allowNull: false,
+    },
+  });
   User.hasMany(userSkill);
   User.hasMany(userEducation);
-  return { User, userSkill, userEducation };
+  User.hasMany(userExperience);
+  return {
+    User, userSkill, userEducation, userExperience,
+  };
 };

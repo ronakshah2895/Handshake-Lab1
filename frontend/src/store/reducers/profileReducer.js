@@ -8,6 +8,8 @@ const initialState = {
   skills: [],
   addSkillError: false,
   educations: [],
+  experiences: [],
+  objective: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +49,27 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         educations: state.educations.concat([action.educationData]),
+      };
+    case 'REMOVE_EDUCATION':
+      return {
+        ...state,
+        educations: state.educations.filter((education) => education.id !== action.educationId),
+      };
+    case 'ADD_EXPERIENCE':
+      return {
+        ...state,
+        experiences: state.experiences.concat([action.experienceData]),
+      };
+    case 'REMOVE_EXPERIENCE':
+      return {
+        ...state,
+        experiences:
+          state.experiences.filter((experience) => experience.id !== action.experienceId),
+      };
+    case 'EDIT_OBJECTIVE':
+      return {
+        ...state,
+        objective: action.objective,
       };
     default:
       return {

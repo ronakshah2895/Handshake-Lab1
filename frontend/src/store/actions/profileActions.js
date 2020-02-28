@@ -58,3 +58,33 @@ export const addEducation = (ev) => (dispatch) => {
     dispatch({ type: 'ADD_EDUCATION', educationData });
   });
 };
+
+export const removeEducation = (educationId) => (dispatch) => {
+  sendPost('profile/remove_education', { educationId }).then(() => {
+    dispatch({ type: 'REMOVE_EDUCATION', educationId });
+  });
+};
+
+export const addExperience = (ev) => (dispatch) => {
+  const { target } = ev;
+  sendPost('profile/add_experience', target).then((experienceData) => {
+    target.reset();
+    $('.modal').modal('hide');
+    dispatch({ type: 'ADD_EXPERIENCE', experienceData });
+  });
+};
+
+export const removeExperience = (experienceId) => (dispatch) => {
+  sendPost('profile/remove_experience', { experienceId }).then(() => {
+    dispatch({ type: 'REMOVE_EXPERIENCE', experienceId });
+  });
+};
+
+export const editObjective = (ev) => (dispatch) => {
+  const { target } = ev;
+  sendPost('profile/edit_objective', target).then((objective) => {
+    target.reset();
+    $('.modal').modal('hide');
+    dispatch({ type: 'EDIT_OBJECTIVE', objective });
+  });
+};

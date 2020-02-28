@@ -1,6 +1,8 @@
 const { v1: uuidv1 } = require('uuid');
 const fs = require('fs');
-const { User, userSkill, userEducation } = require('../../models/index');
+const {
+  User, userSkill, userEducation, userExperience,
+} = require('../../models/index');
 
 function addSkill(req, res) {
   userSkill.create({
@@ -28,13 +30,16 @@ function getProfile(req, res) {
   const email = req.body && req.body.email ? req.body.email : req.user.email;
   User.findOne({
     where: { email },
-    attributes: ['name', 'email', 'dob', 'location', 'phone', 'profile_image'],
+    attributes: ['name', 'email', 'dob', 'location', 'phone', 'profile_image', 'objective'],
     include: [{
       model: userSkill,
       attributes: ['skill'],
     }, {
       model: userEducation,
       attributes: ['id', 'college', 'location', 'degree', 'major', 'year_of_passing', 'cgpa'],
+    }, {
+      model: userExperience,
+      attributes: ['id', 'company', 'location', 'title', 'start_date', 'end_date', 'description'],
     }],
   }).then((user) => {
     const userData = user.dataValues;
@@ -44,8 +49,10 @@ function getProfile(req, res) {
     });
     userData.skills = skillsArr;
     userData.educations = userData.user_educations;
+    userData.experiences = userData.user_experiences;
     delete userData.user_skills;
     delete userData.user_educations;
+    delete userData.user_experiences;
     res.send(userData);
   });
 }
@@ -91,6 +98,52 @@ function addEducation(req, res) {
   });
 }
 
+function removeEducation(req, res) {
+  userEducation.destroy({
+    where: {
+      id: req.body.educationId,
+    },
+  }).then(() => {
+    res.send(req.body.educationId);
+  });
+}
+
+function addExperience(req, res) {
+  userExperience.create({
+    ...req.body,
+    userId: req.user.id,
+  }).then(() => {
+    res.send(req.body);
+  });
+}
+
+function removeExperience(req, res) {
+  userExperience.destroy({
+    where: {
+      id: req.body.experienceId,
+    },
+  }).then(() => {
+    res.send(req.body.experienceId);
+  });
+}
+
+function editObjective(req, res) {
+  User.update({ objective: req.body.objective }, {
+    where: { id: req.user.id },
+  }).then(() => {
+    res.send(req.body.objective);
+  });
+}
+
 module.exports = {
-  addSkill, removeSkill, getProfile, updatePersonalInfo, addProfileImage, addEducation,
+  addSkill,
+  removeSkill,
+  getProfile,
+  updatePersonalInfo,
+  addProfileImage,
+  addEducation,
+  removeEducation,
+  addExperience,
+  removeExperience,
+  editObjective,
 };
