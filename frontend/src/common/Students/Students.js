@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as studentActions from '../../store/actions/studentsActions';
 import './Students.css';
 
@@ -23,15 +24,17 @@ class Students extends React.Component {
           </div>
           <div className="col-8">
             { students.map((student) => (
-              <div className="card" key={student.email}>
-                <div className="student-card card-body">
-                  <img className="card-img" src={process.env.REACT_APP_SERVER_ROOT + student.profile_image} alt="" />
-                  <div className="card-title">
-                    <h5>{student.name}</h5>
-                    <span>{student.college}</span>
+              <Link to={`/profile/${student.email}`} key={student.email}>
+                <div className="card">
+                  <div className="student-card card-body">
+                    <img className="card-img" src={process.env.REACT_APP_SERVER_ROOT + student.profile_image} alt="" />
+                    <div className="card-title">
+                      <h5>{student.name}</h5>
+                      <span>{student.college}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -1,8 +1,9 @@
 /* global $ */
 import { sendPost } from '../../helpers/communicationHelper';
 
-export const fetchProfile = () => (dispatch) => {
-  sendPost('profile/get_profile').then((profile) => {
+export const fetchProfile = (email) => (dispatch) => {
+  const data = email ? { email } : email;
+  sendPost('profile/get_profile', data).then((profile) => {
     dispatch({
       profile,
       type: 'FETCH_PROFILE',

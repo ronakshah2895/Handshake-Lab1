@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as profileActions from '../../store/actions/profileActions';
 import './Profile.css';
 
 class Profile extends React.Component {
   componentDidMount() {
-    const { fetchProfile } = this.props;
-    fetchProfile();
+    const { fetchProfile, match } = this.props;
+    const { email } = match.params;
+    fetchProfile(email);
     this.profileImageInput = React.createRef();
   }
 
@@ -16,11 +18,12 @@ class Profile extends React.Component {
 
   render() {
     const {
-      name, email, dob, profileImage, location, phone, skills, addSkillError, educations,
-      experiences, objective, isCompany,
+      name, email, dob, profileImage, userLocation, phone, skills, addSkillError, educations,
+      experiences, objective, isCompany, match,
       updatePersonalInfo, addSkill, removeSkill, addProfileImage, addEducation,
       removeEducation, addExperience, removeExperience, editObjective,
     } = this.props;
+    const profileEmail = match.params.email;
     return (
       <div className="PROFILE container">
         <div className="row">
@@ -34,7 +37,9 @@ class Profile extends React.Component {
                 <img src={profileImage} className="card-img-top" alt="" />
               </div>
               <div className="card-body text-center">
-                <span className="editIcon" aria-hidden="true" data-toggle="modal" data-target="#profileEdit">&#9998;</span>
+                { !profileEmail && (
+                  <span className="editIcon" aria-hidden="true" data-toggle="modal" data-target="#profileEdit">&#9998;</span>
+                )}
                 <h3>{name}</h3>
                 <p>
                   <span className="font-weight-bold">Email: </span>
@@ -48,7 +53,7 @@ class Profile extends React.Component {
                 )}
                 <p>
                   <span className="font-weight-bold">Location: </span>
-                  <span>{location || 'Not Set'}</span>
+                  <span>{userLocation || 'Not Set'}</span>
                 </p>
                 <p>
                   <span className="font-weight-bold">Phone: </span>
@@ -67,13 +72,15 @@ class Profile extends React.Component {
                       <span className="remove-icon" tabIndex="0" onClick={removeSkill.bind(null, skill)} onKeyDown={removeSkill.bind(null, skill)} role="button">&times;</span>
                     </span>
                   ))}
-                  <form onSubmit={addSkill} className="skill-form">
-                    <input type="text" name="skill" id="inputSkill" className="form-control" placeholder="Add Skill" required />
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                    {addSkillError && (
-                      <span className="text-danger add-skill-error">Skill Exists</span>
-                    )}
-                  </form>
+                  { !profileEmail && (
+                    <form onSubmit={addSkill} className="skill-form">
+                      <input type="text" name="skill" id="inputSkill" className="form-control" placeholder="Add Skill" required />
+                      <button type="submit" className="btn btn-primary">Submit</button>
+                      {addSkillError && (
+                        <span className="text-danger add-skill-error">Skill Exists</span>
+                      )}
+                    </form>
+                  )}
                 </div>
               </div>
             )}
@@ -83,7 +90,9 @@ class Profile extends React.Component {
             <div className="card">
               <div className="card-header">
                 {isCompany ? ' Description' : ' Objective'}
-                <span className="objectiveEdit" aria-hidden="true" data-toggle="modal" data-target="#objectiveEdit">&#9998;</span>
+                { !profileEmail && (
+                  <span className="objectiveEdit" aria-hidden="true" data-toggle="modal" data-target="#objectiveEdit">&#9998;</span>
+                )}
               </div>
               <div className="card-body">
                 <p>{objective || 'Not Set'}</p>
@@ -98,7 +107,9 @@ class Profile extends React.Component {
                     const key = `education-${index}`;
                     return (
                       <div key={key}>
-                        <span className="ed-del-icon" tabIndex="0" onClick={removeEducation.bind(null, educationData.id)} onKeyDown={removeEducation.bind(null, educationData.id)} role="button">&#128465;</span>
+                        { !profileEmail && (
+                          <span className="ed-del-icon" tabIndex="0" onClick={removeEducation.bind(null, educationData.id)} onKeyDown={removeEducation.bind(null, educationData.id)} role="button">&#128465;</span>
+                        )}
                         <h5 className="card-title">{educationData.college}</h5>
                         <span className="card-text">
                           <span className="font-weight-bold">Degree: </span>
@@ -128,7 +139,9 @@ class Profile extends React.Component {
                       </div>
                     );
                   })}
-                  <button type="button" data-toggle="modal" data-target="#addEducation" className="btn btn-primary">Add Education</button>
+                  { !profileEmail && (
+                    <button type="button" data-toggle="modal" data-target="#addEducation" className="btn btn-primary">Add Education</button>
+                  )}
                 </div>
               </div>
             )}
@@ -141,7 +154,9 @@ class Profile extends React.Component {
                     const key = `education-${index}`;
                     return (
                       <div key={key}>
-                        <span className="ed-del-icon" tabIndex="0" onClick={removeExperience.bind(null, experienceData.id)} onKeyDown={removeExperience.bind(null, experienceData.id)} role="button">&#128465;</span>
+                        { !profileEmail && (
+                          <span className="ed-del-icon" tabIndex="0" onClick={removeExperience.bind(null, experienceData.id)} onKeyDown={removeExperience.bind(null, experienceData.id)} role="button">&#128465;</span>
+                        )}
                         <h5 className="card-title">{experienceData.company}</h5>
                         <span className="card-text">
                           <span className="font-weight-bold">Role: </span>
@@ -168,66 +183,72 @@ class Profile extends React.Component {
                       </div>
                     );
                   })}
-                  <button type="button" data-toggle="modal" data-target="#addExperience" className="btn btn-primary">Add Experience</button>
+                  { !profileEmail && (
+                    <button type="button" data-toggle="modal" data-target="#addExperience" className="btn btn-primary">Add Experience</button>
+                  )}
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        <div className="modal" id="profileEdit" tabIndex="-1" role="dialog">
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Edit Personal Details</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+        { !profileEmail && (
+          <div className="modal" id="profileEdit" tabIndex="-1" role="dialog">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Edit Personal Details</h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form onSubmit={updatePersonalInfo}>
+                  <div className="modal-body">
+                    <input type="text" name="name" id="inputName" defaultValue={name} className="form-control" placeholder="Name" required />
+                    {!isCompany && (
+                      <input type="date" name="dob" id="inputDOB" defaultValue={dob} className="form-control" placeholder="DOB" />
+                    )}
+                    <input type="text" name="location" id="inputLocation" defaultValue={userLocation} className="form-control" placeholder="Location" />
+                    <input type="number" name="phone" id="inputPhone" defaultValue={phone} className="form-control" placeholder="Phone" />
+                  </div>
+                  <div className="modal-footer">
+                    <button type="submit" className="btn btn-primary">Save changes</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
               </div>
-              <form onSubmit={updatePersonalInfo}>
-                <div className="modal-body">
-                  <input type="text" name="name" id="inputName" defaultValue={name} className="form-control" placeholder="Name" required />
-                  {!isCompany && (
-                    <input type="date" name="dob" id="inputDOB" defaultValue={dob} className="form-control" placeholder="DOB" />
-                  )}
-                  <input type="text" name="location" id="inputLocation" defaultValue={location} className="form-control" placeholder="Location" />
-                  <input type="number" name="phone" id="inputPhone" defaultValue={phone} className="form-control" placeholder="Phone" />
-                </div>
-                <div className="modal-footer">
-                  <button type="submit" className="btn btn-primary">Save changes</button>
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </form>
             </div>
           </div>
-        </div>
+        )}
 
-        <div className="modal" id="objectiveEdit" tabIndex="-1" role="dialog">
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">
-                  Edit
-                  {isCompany ? ' Description' : ' Objective'}
-                </h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+        { !profileEmail && (
+          <div className="modal" id="objectiveEdit" tabIndex="-1" role="dialog">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">
+                    Edit
+                    {isCompany ? ' Description' : ' Objective'}
+                  </h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form onSubmit={editObjective}>
+                  <div className="modal-body">
+                    <textarea name="objective" id="inputObjective" defaultValue={objective} className="form-control" placeholder={isCompany ? ' Description' : ' Objective'} />
+                  </div>
+                  <div className="modal-footer">
+                    <button type="submit" className="btn btn-primary">Save changes</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
               </div>
-              <form onSubmit={editObjective}>
-                <div className="modal-body">
-                  <textarea name="objective" id="inputObjective" defaultValue={objective} className="form-control" placeholder={isCompany ? ' Description' : ' Objective'} />
-                </div>
-                <div className="modal-footer">
-                  <button type="submit" className="btn btn-primary">Save changes</button>
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </form>
             </div>
           </div>
-        </div>
+        )}
 
-        {!isCompany && (
+        { !isCompany && !profileEmail && (
           <div className="modal" id="addEducation" tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
@@ -256,7 +277,7 @@ class Profile extends React.Component {
           </div>
         )}
 
-        {!isCompany && (
+        { !isCompany && !profileEmail && (
           <div className="modal" id="addExperience" tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
@@ -294,7 +315,7 @@ const mapStateToProps = (state) => ({
   email: state.profileReducer.email,
   dob: state.profileReducer.dob,
   profileImage: process.env.REACT_APP_SERVER_ROOT + state.profileReducer.profile_image,
-  location: state.profileReducer.location,
+  userLocation: state.profileReducer.location,
   phone: state.profileReducer.phone,
   skills: state.profileReducer.skills,
   addSkillError: state.profileReducer.addSkillError,
@@ -309,8 +330,8 @@ const mapDispatchToProps = (dispatch) => ({
     ev.preventDefault();
     dispatch(profileActions.updatePersonalInfo(ev));
   },
-  fetchProfile: () => {
-    dispatch(profileActions.fetchProfile());
+  fetchProfile: (email) => {
+    dispatch(profileActions.fetchProfile(email));
   },
   addSkill: (ev) => {
     ev.preventDefault();
@@ -342,4 +363,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));
