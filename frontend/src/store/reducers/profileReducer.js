@@ -10,6 +10,7 @@ const initialState = {
   educations: [],
   experiences: [],
   objective: null,
+  is_company: null,
 };
 
 const reducer = (state = initialState, action) => {

@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, isCompany } = this.props;
     return (
       <Router>
         <Header />
@@ -31,7 +31,12 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/" component={Home} />
+            { isCompany && (
+              <Route exact path="/" component={Home} />
+            )}
+            { !isCompany && (
+              <Route exact path="/" component={Home} />
+            )}
             <Redirect from="/" to="/" />
           </Switch>
         )}
@@ -52,6 +57,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   loggedIn: state.authReducer.loggedIn,
+  isCompany: state.authReducer.is_company,
 });
 
 const mapDispatchToProps = (dispatch) => ({

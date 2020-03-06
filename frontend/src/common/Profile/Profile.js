@@ -29,11 +29,15 @@ class Profile extends React.Component {
         <div className="row">
           <div className="col-4">
             <div className="card">
-              <form className="profile-image-input">
-                <input type="file" name="profile_image" accept="image/*" onChange={addProfileImage} ref={this.profileImageInput} />
-              </form>
+              { !profileEmail && (
+                <form className="profile-image-input">
+                  <input type="file" name="profile_image" accept="image/*" onChange={addProfileImage} ref={this.profileImageInput} />
+                </form>
+              )}
               <div className="image-container">
-                <div className="image-hover-background" tabIndex="0" onClick={this.showProfileImageInput.bind(this)} onKeyDown={this.showProfileImageInput.bind(this)} role="button">.</div>
+                { !profileEmail && (
+                  <div className="image-hover-background" tabIndex="0" onClick={this.showProfileImageInput.bind(this)} onKeyDown={this.showProfileImageInput.bind(this)} role="button">.</div>
+                )}
                 <img src={profileImage} className="card-img-top" alt="" />
               </div>
               <div className="card-body text-center">
@@ -69,7 +73,9 @@ class Profile extends React.Component {
                   { skills.map((skill) => (
                     <span className="badge badge-pill badge-primary" key={skill}>
                       <span>{skill}</span>
-                      <span className="remove-icon" tabIndex="0" onClick={removeSkill.bind(null, skill)} onKeyDown={removeSkill.bind(null, skill)} role="button">&times;</span>
+                      { !profileEmail && (
+                        <span className="remove-icon" tabIndex="0" onClick={removeSkill.bind(null, skill)} onKeyDown={removeSkill.bind(null, skill)} role="button">&times;</span>
+                      )}
                     </span>
                   ))}
                   { !profileEmail && (
@@ -322,7 +328,7 @@ const mapStateToProps = (state) => ({
   educations: state.profileReducer.educations,
   experiences: state.profileReducer.experiences,
   objective: state.profileReducer.objective,
-  isCompany: state.authReducer.is_company,
+  isCompany: state.profileReducer.is_company,
 });
 
 const mapDispatchToProps = (dispatch) => ({

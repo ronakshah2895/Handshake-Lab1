@@ -30,7 +30,7 @@ function getProfile(req, res) {
   const email = req.body && req.body.email ? req.body.email : req.user.email;
   User.findOne({
     where: { email },
-    attributes: ['name', 'email', 'dob', 'location', 'phone', 'profile_image', 'objective'],
+    attributes: ['name', 'email', 'dob', 'location', 'phone', 'profile_image', 'objective', 'is_company'],
     include: [{
       model: userSkill,
       attributes: ['skill'],
