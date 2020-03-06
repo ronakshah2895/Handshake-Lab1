@@ -11,7 +11,7 @@ class Students extends React.Component {
   }
 
   render() {
-    const { students } = this.props;
+    const { students, applyFilter } = this.props;
     return (
       <div className="STUDENT container">
         <div className="row">
@@ -19,6 +19,22 @@ class Students extends React.Component {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Filters</h5>
+                <hr />
+                <h5 className="card-title">Name</h5>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span role="img" className="input-group-text" aria-label="search" id="filter-name">&#128269;</span>
+                  </div>
+                  <input type="text" onChange={applyFilter} name="name-filter" className="form-control" placeholder="Name" aria-label="Name" aria-describedby="filter-name" />
+                </div>
+                <hr />
+                <h5 className="card-title">College</h5>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span role="img" className="input-group-text" aria-label="search" id="filter-college">&#128269;</span>
+                  </div>
+                  <input type="text" onChange={applyFilter} name="college-filter" className="form-control" placeholder="College" aria-label="Name" aria-describedby="filter-college" />
+                </div>
               </div>
             </div>
           </div>
@@ -44,12 +60,15 @@ class Students extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  students: state.studentsReducer.students,
+  students: state.studentsReducer.filteredStudents,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchStudents: () => {
     dispatch(studentActions.fetchStudents());
+  },
+  applyFilter: (ev) => {
+    dispatch(studentActions.applyFilter(ev));
   },
 });
 

@@ -8,3 +8,12 @@ export const fetchStudents = () => (dispatch) => {
     });
   });
 };
+
+export const applyFilter = (ev) => (dispatch) => {
+  const { name, value } = ev.target;
+  if (name === 'name-filter') {
+    dispatch({ type: 'FILTER_STUDENTS', nameFilter: value.toLowerCase(), filter: 'name' });
+  } else if (name === 'college-filter') {
+    dispatch({ type: 'FILTER_STUDENTS', collegeFilter: value.toLowerCase(), filter: 'college' });
+  }
+};
