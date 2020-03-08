@@ -8,10 +8,11 @@ import thunk from 'redux-thunk';
 import authReducer from './store/reducers/authReducer';
 import profileReducer from './store/reducers/profileReducer';
 import studentsReducer from './store/reducers/studentsReducer';
+import jobsReducer from './store/reducers/jobsReducer';
 import App from './App';
 
 const rootReducer = combineReducers({
-  authReducer, profileReducer, studentsReducer,
+  authReducer, profileReducer, studentsReducer, jobsReducer,
 });
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
