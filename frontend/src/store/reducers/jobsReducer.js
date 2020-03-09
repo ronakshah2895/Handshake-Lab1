@@ -9,6 +9,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         jobs: [...action.jobs],
       };
+    case 'POST_JOB':
+      return {
+        ...state,
+        jobs: state.jobs.concat([action.job]),
+      };
     default:
       return {
         ...state,

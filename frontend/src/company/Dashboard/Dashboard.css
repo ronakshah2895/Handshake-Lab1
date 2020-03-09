@@ -1,3 +1,7 @@
 .DASHBOARD_C .card {
   margin: 8px 0;
 }
+
+.DASHBOARD_C .form-control {
+  margin: 4px;
+}

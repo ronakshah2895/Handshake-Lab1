@@ -5,7 +5,19 @@ function postJob(req, res) {
     ...req.body,
     creatorId: req.user.id,
   }).then((job) => {
-    res.send(job);
+    const {
+      title, category, location, salary, deadline, createdAt, description,
+    } = job;
+    res.send({
+      title,
+      category,
+      location,
+      salary,
+      deadline,
+      createdAt,
+      description,
+      creator: { name: req.user.name },
+    });
   });
 }
 
@@ -14,12 +26,13 @@ function getJobs(req, res) {
     where: {
       creatorId: req.user.id,
     },
-    attributes: ['title', 'category', 'location', 'salary', 'deadline', 'createdAt'],
+    attributes: ['title', 'category', 'location', 'salary', 'deadline', 'createdAt', 'description'],
     include: [{
       model: User,
       as: 'creator',
       attributes: ['name'],
     }],
+    order: [['deadline', 'DESC']],
   }).then((jobs) => {
     res.send(jobs);
   });
