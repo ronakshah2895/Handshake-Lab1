@@ -10,6 +10,7 @@ import {
 import Header from './common/Header/Header';
 import Home from './common/Landing/Landing';
 import companyDashboard from './company/Dashboard/Dashboard';
+import userDashboard from './user/Dashboard/Dashboard';
 import Login from './common/Login/Login';
 import Register from './common/Register/Register';
 import Profile from './common/Profile/Profile';
@@ -43,7 +44,7 @@ class App extends React.Component {
               <Route exact path="/" component={companyDashboard} />
             )}
             { !isCompany && (
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={userDashboard} />
             )}
             <Route exact path="/students" component={Students} />
             <Route exact path="/profile" component={Profile} />
