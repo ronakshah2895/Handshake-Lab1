@@ -21,3 +21,16 @@ export const postJob = (ev) => (dispatch) => {
     });
   });
 };
+
+export const updateSelected = (selectedJob) => (dispatch) => {
+  dispatch({ selectedJob, type: 'UPDATE_SELECTED' });
+};
+
+export const applyJob = (ev) => (dispatch) => {
+  const { target } = ev;
+  sendPost('jobs/apply_job', target).then((res) => {
+    target.reset();
+    $('.modal').modal('hide');
+    console.log(res);
+  });
+};

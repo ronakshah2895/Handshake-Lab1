@@ -25,6 +25,18 @@ module.exports = (sequelize, DataTypes, User) => {
       allowNull: false,
     },
   });
+  const jobApplication = sequelize.define('job_application', {
+    resume: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.ENUM('Pending', 'Reviewed', 'Declined'),
+      allowNull: false,
+    },
+  });
+  jobApplication.belongsTo(User, { as: 'applicant' });
   Job.belongsTo(User, { as: 'creator' });
-  return { Job };
+  Job.hasMany(jobApplication);
+  return { Job, jobApplication };
 };

@@ -1,5 +1,6 @@
 const initialState = {
   jobs: [],
+  selectedJob: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +14,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         jobs: state.jobs.concat([action.job]),
+      };
+    case 'UPDATE_SELECTED':
+      return {
+        ...state,
+        selectedJob: action.selectedJob,
       };
     default:
       return {

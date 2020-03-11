@@ -1,4 +1,7 @@
-const { User, Job } = require('../models/index');
+const fs = require('fs');
+const { v1: uuidv1 } = require('uuid');
+const { literal } = require('sequelize');
+const { User, Job, jobApplication } = require('../models/index');
 
 function postJob(req, res) {
   Job.create({
@@ -22,15 +25,23 @@ function postJob(req, res) {
 }
 
 function getJobs(req, res) {
+  let filterObj;
+  if (req.user.is_company) filterObj = { where: { creatorId: req.user.id } };
+  else filterObj = { where: literal('job_applications.id IS NULL') };
   Job.findAll({
-    where: {
-      creatorId: req.user.id,
-    },
-    attributes: ['title', 'category', 'location', 'salary', 'deadline', 'createdAt', 'description'],
+    ...filterObj,
+    attributes: ['id', 'title', 'category', 'location', 'salary', 'deadline', 'createdAt', 'description'],
     include: [{
       model: User,
       as: 'creator',
       attributes: ['name'],
+    }, {
+      model: jobApplication,
+      where: {
+        applicantId: req.user.id,
+      },
+      attributes: [],
+      required: false,
     }],
     order: [['deadline', 'DESC']],
   }).then((jobs) => {
@@ -38,4 +49,23 @@ function getJobs(req, res) {
   });
 }
 
-module.exports = { postJob, getJobs };
+function applyJob(req, res) {
+  const resume = req.files[0];
+  if (!fs.existsSync('public/resumes')) {
+    fs.mkdirSync('public/resumes');
+  }
+  const fileExt = resume.originalname.substring(resume.originalname.lastIndexOf('.'));
+  const path = `resumes/${uuidv1() + fileExt}`;
+  fs.writeFile(`public/${path}`, resume.buffer, () => {
+    jobApplication.create({
+      resume: path,
+      jobId: req.body.jobId,
+      applicantId: req.user.id,
+      status: 'Pending',
+    }).then(() => {
+      res.send({ res: 'Success' });
+    });
+  });
+}
+
+module.exports = { postJob, getJobs, applyJob };

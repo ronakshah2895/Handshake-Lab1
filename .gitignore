@@ -103,6 +103,9 @@ dist
 #profile images
 backend/public/images/profile_images
 
+#resumes
+backend/public/resumes
+
 # TernJS port file
 .tern-port
 
