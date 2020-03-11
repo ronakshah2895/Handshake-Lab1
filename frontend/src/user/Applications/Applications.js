@@ -10,12 +10,32 @@ class Applications extends React.Component {
   }
 
   render() {
-    const { applications } = this.props;
+    const { statusFilter, applications, toggleStatusFilter } = this.props;
     return (
       <div className="APPLICATIONS_U container">
         <div className="row">
           <div className="col-4">
-            <h5>Filters</h5>
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Filters</h5>
+                <hr />
+                <h5 className="card-title">Status</h5>
+                <label className="form-check-label" htmlFor="pendingCheck">
+                  <input className="form-check-input" onChange={toggleStatusFilter.bind(null, 'Pending')} type="checkbox" value="Pending" id="pendingCheck" defaultChecked={statusFilter.Pending} />
+                  Pending
+                </label>
+                <br />
+                <label className="form-check-label" htmlFor="reviewCheck">
+                  <input className="form-check-input" onChange={toggleStatusFilter.bind(null, 'Reviewed')} type="checkbox" value="Reviewed" id="reviewCheck" defaultChecked={statusFilter.Reviewed} />
+                  Reviewed
+                </label>
+                <br />
+                <label className="form-check-label" htmlFor="declinedCheck">
+                  <input className="form-check-input" onChange={toggleStatusFilter.bind(null, 'Declined')} type="checkbox" value="Declined" id="declinedCheck" defaultChecked={statusFilter.Declined} />
+                  Declined
+                </label>
+              </div>
+            </div>
           </div>
           <div className="col-8">
             { applications.map((application, index) => (
@@ -38,12 +58,16 @@ class Applications extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  applications: state.jobsReducer.applications,
+  applications: state.jobsReducer.filteredApplications,
+  statusFilter: state.jobsReducer.statusFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchApplications: () => {
     dispatch(jobsActions.fetchApplications());
+  },
+  toggleStatusFilter: (filter) => {
+    dispatch(jobsActions.toggleStatusFilter(filter));
   },
 });
 

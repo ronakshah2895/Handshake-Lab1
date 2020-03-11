@@ -43,3 +43,7 @@ export const applyJob = (ev) => (dispatch) => {
     dispatch({ jobId: parseInt(jobId, 10), type: 'APPLY_JOB' });
   });
 };
+
+export const toggleStatusFilter = (filter) => (dispatch) => {
+  dispatch({ filter, type: 'TOGGLE_STATUS_FILTER' });
+};
