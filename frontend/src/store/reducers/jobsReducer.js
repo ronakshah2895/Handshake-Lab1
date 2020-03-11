@@ -1,5 +1,10 @@
 const initialState = {
   jobs: [],
+  filteredJobs: [],
+  titleFilter: '',
+  companyFilter: '',
+  categoryFilter: 'Full-Time',
+  locationFilter: '',
   applications: [],
   filteredApplications: [],
   statusFilter: {
@@ -16,11 +21,30 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         jobs: [...action.jobs],
+        filteredJobs: action.jobs.filter((job) => job.category === 'Full-Time'),
       };
     case 'POST_JOB':
       return {
         ...state,
         jobs: state.jobs.concat([action.job]),
+      };
+    case 'APPLY_FILTER':
+      return {
+        ...state,
+        ...action.filter,
+        filteredJobs: state.jobs.filter((job) => {
+          const filterObj = { ...state, ...action.filter };
+          if (job.category === filterObj.categoryFilter && (
+            !filterObj.titleFilter
+            || job.title.toLowerCase().includes(filterObj.titleFilter.toLowerCase())) && (
+            !filterObj.companyFilter
+            || job.creator.name.toLowerCase().includes(filterObj.companyFilter.toLowerCase())) && (
+            !filterObj.locationFilter
+            || job.location.toLowerCase().includes(filterObj.locationFilter.toLowerCase()))) {
+            return true;
+          }
+          return false;
+        }),
       };
     case 'UPDATE_SELECTED':
       return {

@@ -47,3 +47,8 @@ export const applyJob = (ev) => (dispatch) => {
 export const toggleStatusFilter = (filter) => (dispatch) => {
   dispatch({ filter, type: 'TOGGLE_STATUS_FILTER' });
 };
+
+export const applyFilter = (ev, type) => (dispatch) => {
+  const filter = { [type]: ev.target.value };
+  dispatch({ filter, type: 'APPLY_FILTER' });
+};

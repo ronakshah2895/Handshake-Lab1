@@ -1,0 +1,7 @@
+.DASHBOARD_U .filter-row {
+  margin: 0 -4px;
+}
+
+.DASHBOARD_U .filter-row .form-control {
+  margin: 4px;
+}

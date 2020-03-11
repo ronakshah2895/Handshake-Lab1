@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as jobActions from '../../store/actions/jobsActions';
+import './Dashboard.css';
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -10,10 +11,21 @@ class Dashboard extends React.Component {
 
   render() {
     const {
-      jobs, selectedJob, updateSelected, applyJob,
+      jobs, selectedJob, updateSelected, applyJob, applyFilter,
     } = this.props;
     return (
-      <div className="DASHBOARD_C container">
+      <div className="DASHBOARD_U container">
+        <div className="row filter-row">
+          <input type="text" className="col form-control" onChange={applyFilter.bind(null, 'titleFilter')} id="filterTitle" placeholder="Title" />
+          <input type="text" className="col form-control" onChange={applyFilter.bind(null, 'companyFilter')} id="filterCompany" placeholder="Company" />
+          <select className="col form-control" onChange={applyFilter.bind(null, 'categoryFilter')} id="filterCategory">
+            <option>Full-Time</option>
+            <option>Part-Time</option>
+            <option>On-Campus</option>
+            <option>Intern</option>
+          </select>
+          <input type="text" className="col form-control" onChange={applyFilter.bind(null, 'locationFilter')} id="filterLocation" placeholder="Location" />
+        </div>
         { jobs.map((job, index) => (
           <div className="card" key={`job-${index + 1}`}>
             <div className="card-header">
@@ -67,7 +79,7 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  jobs: state.jobsReducer.jobs,
+  jobs: state.jobsReducer.filteredJobs,
   selectedJob: state.jobsReducer.selectedJob,
 });
 
@@ -81,6 +93,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updateSelected: (selectedJob) => {
     dispatch(jobActions.updateSelected(selectedJob));
+  },
+  applyFilter: (type, ev) => {
+    dispatch(jobActions.applyFilter(ev, type));
   },
 });
 
