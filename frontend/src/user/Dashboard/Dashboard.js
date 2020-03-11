@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as jobActions from '../../store/actions/jobsActions';
 import './Dashboard.css';
 
@@ -31,7 +32,7 @@ class Dashboard extends React.Component {
             <div className="card-header">
               <div className="d-inline-block">
                 <h5>{job.title}</h5>
-                <span>{job.creator.name}</span>
+                <Link to={`/profile/${job.creator.email}`}>{job.creator.name}</Link>
               </div>
               <button type="button" onClick={updateSelected.bind(null, job.id)} data-toggle="modal" data-target="#applyJob" className="btn btn-primary float-right">Apply</button>
             </div>

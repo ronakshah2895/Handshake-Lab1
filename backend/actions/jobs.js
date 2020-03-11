@@ -34,7 +34,7 @@ function getJobs(req, res) {
     include: [{
       model: User,
       as: 'creator',
-      attributes: ['name'],
+      attributes: ['name', 'email'],
     }, {
       model: jobApplication,
       where: {
