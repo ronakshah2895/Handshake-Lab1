@@ -1,5 +1,6 @@
 const initialState = {
   jobs: [],
+  applications: [],
   selectedJob: 0,
 };
 
@@ -19,6 +20,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedJob: action.selectedJob,
+      };
+    case 'APPLY_JOB':
+      return {
+        ...state,
+        jobs: state.jobs.filter((job) => job.id !== action.jobId),
+      };
+    case 'FETCH_APPLICATIONS':
+      return {
+        ...state,
+        applications: [...action.applications],
       };
     default:
       return {

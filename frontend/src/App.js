@@ -11,6 +11,7 @@ import Header from './common/Header/Header';
 import Home from './common/Landing/Landing';
 import companyDashboard from './company/Dashboard/Dashboard';
 import userDashboard from './user/Dashboard/Dashboard';
+import userApplications from './user/Applications/Applications';
 import Login from './common/Login/Login';
 import Register from './common/Register/Register';
 import Profile from './common/Profile/Profile';
@@ -43,9 +44,10 @@ class App extends React.Component {
             { isCompany && (
               <Route exact path="/" component={companyDashboard} />
             )}
-            { !isCompany && (
-              <Route exact path="/" component={userDashboard} />
-            )}
+            { !isCompany && [
+              <Route exact key="0" path="/" component={userDashboard} />,
+              <Route exact key="1" path="/applications" component={userApplications} />,
+            ]}
             <Route exact path="/students" component={Students} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/profile/:email" component={Profile} />

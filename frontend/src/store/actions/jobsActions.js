@@ -10,6 +10,15 @@ export const fetchJobs = () => (dispatch) => {
   });
 };
 
+export const fetchApplications = () => (dispatch) => {
+  sendPost('jobs/get_applications').then((applications) => {
+    dispatch({
+      applications,
+      type: 'FETCH_APPLICATIONS',
+    });
+  });
+};
+
 export const postJob = (ev) => (dispatch) => {
   const { target } = ev;
   sendPost('jobs/post_job', target).then((job) => {
@@ -28,9 +37,9 @@ export const updateSelected = (selectedJob) => (dispatch) => {
 
 export const applyJob = (ev) => (dispatch) => {
   const { target } = ev;
-  sendPost('jobs/apply_job', target).then((res) => {
+  sendPost('jobs/apply_job', target).then((jobId) => {
     target.reset();
     $('.modal').modal('hide');
-    console.log(res);
+    dispatch({ jobId: parseInt(jobId, 10), type: 'APPLY_JOB' });
   });
 };

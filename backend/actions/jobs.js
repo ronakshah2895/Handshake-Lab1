@@ -63,9 +63,30 @@ function applyJob(req, res) {
       applicantId: req.user.id,
       status: 'Pending',
     }).then(() => {
-      res.send({ res: 'Success' });
+      res.send(req.body.jobId);
     });
   });
 }
 
-module.exports = { postJob, getJobs, applyJob };
+function getApplications(req, res) {
+  Job.findAll({
+    attributes: ['title'],
+    include: [{
+      model: User,
+      as: 'creator',
+      attributes: ['name'],
+    }, {
+      model: jobApplication,
+      where: {
+        applicantId: req.user.id,
+      },
+      attributes: ['status', 'createdAt'],
+    }],
+  }).then((applications) => {
+    res.send(applications);
+  });
+}
+
+module.exports = {
+  postJob, getJobs, applyJob, getApplications,
+};

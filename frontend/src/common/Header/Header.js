@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import * as authActions from '../../store/actions/authActions';
 
 function Header(props) {
-  const { loggedIn, logout } = props;
+  const { isCompany, loggedIn, logout } = props;
   return (
     <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
@@ -21,6 +21,11 @@ function Header(props) {
             <li className="nav-item">
               <NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink>
             </li>
+            { !isCompany && (
+              <li className="nav-item">
+                <NavLink exact className="nav-link" activeClassName="active" to="/applications">Applications</NavLink>
+              </li>
+            )}
             <li className="nav-item">
               <NavLink exact className="nav-link" activeClassName="active" to="/students">Students</NavLink>
             </li>
@@ -49,6 +54,7 @@ function Header(props) {
 
 const mapStateToProps = (state) => ({
   loggedIn: state.authReducer.loggedIn,
+  isCompany: state.authReducer.is_company,
 });
 
 const mapDispatchToProps = (dispatch) => ({
