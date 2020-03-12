@@ -1,5 +1,5 @@
 const { literal } = require('sequelize');
-const { User, Event, eventRegistration } = require('../models/index');
+const { User, userEducation, Event, eventRegistration } = require('../models/index');
 
 function createEvent(req, res) {
   Event.create({
@@ -25,7 +25,7 @@ function getEvents(req, res) {
   else filterObj = { where: literal('event_registrations.id IS NULL') };
   Event.findAll({
     ...filterObj,
-    attributes: ['id', 'name', 'location', 'time', 'description'],
+    attributes: ['id', 'name', 'location', 'time', 'description', 'eligibility'],
     include: [{
       model: User,
       as: 'creator',
@@ -39,8 +39,28 @@ function getEvents(req, res) {
       required: false,
     }],
     order: [['time', 'DESC']],
-  }).then((jobs) => {
-    res.send(jobs);
+  }).then((events) => {
+    if (req.user.is_company) res.send(events);
+    else {
+      User.findOne({
+        where: { id: req.user.id },
+        include: [{
+          model: userEducation,
+          attributes: ['major'],
+        }],
+      }).then((user) => {
+        const majors = [''];
+        user.dataValues.user_educations.forEach((education) => {
+          majors.push(education.dataValues.major.toLowerCase());
+        });
+        console.log(majors);
+        const filteredEvents = events.filter((event) => {
+          if (majors.includes(event.eligibility.toLowerCase())) return true;
+          return false;
+        });
+        res.send(filteredEvents);
+      });
+    }
   });
 }
 

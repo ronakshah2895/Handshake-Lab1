@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes, User) => {
       type: DataTypes.DATE(),
       allowNull: false,
     },
+    eligibility: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
     description: {
       type: DataTypes.TEXT(),
       allowNull: false,

@@ -48,6 +48,7 @@ class Events extends React.Component {
                   <input type="text" name="name" id="inputName" className="form-control" placeholder="Name" required />
                   <input type="datetime-local" name="time" id="inputTime" className="form-control" placeholder="Time" required />
                   <input type="text" name="location" id="inputLocation" className="form-control" placeholder="Location" required />
+                  <input type="text" name="eligibility" id="inputEligibility" className="form-control" placeholder="Eligibility" />
                   <textarea name="description" id="inputDescription" className="form-control" placeholder="Description" required />
                 </div>
                 <div className="modal-footer">
