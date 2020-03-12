@@ -32,6 +32,11 @@ function Header(props) {
             <li className="nav-item">
               <NavLink exact className="nav-link" activeClassName="active" to="/events">Events</NavLink>
             </li>
+            { !isCompany && (
+              <li className="nav-item">
+                <NavLink exact className="nav-link" activeClassName="active" to="/registrations">Registrations</NavLink>
+              </li>
+            )}
             <li className="nav-item">
               <NavLink exact className="nav-link" activeClassName="active" to="/profile">Profile</NavLink>
             </li>

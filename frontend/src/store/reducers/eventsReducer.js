@@ -1,6 +1,7 @@
 const initialState = {
   events: [],
   filteredEvents: [],
+  registrations: [],
   selectedEvent: 0,
 };
 
@@ -26,6 +27,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredEvents: state.events.filter((event) => event.id !== action.eventId),
+      };
+    case 'FETCH_REGISTRATIONS':
+      return {
+        ...state,
+        registrations: [...action.registrations],
       };
     default:
       return {

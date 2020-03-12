@@ -18,6 +18,7 @@ import Profile from './common/Profile/Profile';
 import Students from './common/Students/Students';
 import companyEvents from './company/Events/Events';
 import userEvents from './user/Events/Events';
+import userRegistrations from './user/Registrations/Registrations';
 import * as authActions from './store/actions/authActions';
 
 class App extends React.Component {
@@ -51,6 +52,7 @@ class App extends React.Component {
               <Route exact key="1" path="/" component={userDashboard} />,
               <Route exact key="2" path="/applications" component={userApplications} />,
               <Route exact key="3" path="/events" component={userEvents} />,
+              <Route exact key="4" path="/registrations" component={userRegistrations} />,
             ]}
             <Route exact path="/students" component={Students} />
             <Route exact path="/profile" component={Profile} />

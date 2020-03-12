@@ -10,6 +10,15 @@ export const fetchEvents = () => (dispatch) => {
   });
 };
 
+export const fetchRegistrations = () => (dispatch) => {
+  sendPost('events/get_registrations').then((registrations) => {
+    dispatch({
+      registrations,
+      type: 'FETCH_REGISTRATIONS',
+    });
+  });
+};
+
 export const createEvent = (ev) => (dispatch) => {
   const { target } = ev;
   sendPost('events/create_event', target).then((event) => {

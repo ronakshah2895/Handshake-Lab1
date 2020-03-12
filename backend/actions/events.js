@@ -53,6 +53,25 @@ function registerEvent(req, res) {
   });
 }
 
+function getRegistrations(req, res) {
+  Event.findAll({
+    attributes: ['name', 'time'],
+    include: [{
+      model: User,
+      as: 'creator',
+      attributes: ['name'],
+    }, {
+      model: eventRegistration,
+      where: {
+        participantId: req.user.id,
+      },
+      attributes: [],
+    }],
+  }).then((registrations) => {
+    res.send(registrations);
+  });
+}
+
 module.exports = {
-  createEvent, getEvents, registerEvent,
+  createEvent, getEvents, registerEvent, getRegistrations,
 };
