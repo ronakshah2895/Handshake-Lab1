@@ -16,6 +16,7 @@ class Applications extends React.Component {
     } = this.props;
     return (
       <div className="APPLICATIONS_C container">
+        <h5 className="mt-2">{`Application for ${applications.length && applications[0].title}`}</h5>
         { applications.length && applications[0].job_applications.map((application, index) => (
           <div className="card" key={`application-${index + 1}`}>
             <div className="card-body">

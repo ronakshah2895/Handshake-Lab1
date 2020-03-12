@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as eventActions from '../../store/actions/eventsActions';
 import './Events.css';
 
@@ -21,7 +22,7 @@ class Events extends React.Component {
                 <h5>{event.name}</h5>
                 <span>{event.creator.name}</span>
               </div>
-              <button type="button" className="btn btn-primary float-right">View Registrations</button>
+              <Link to={`registrations/${event.id}`}><button type="button" className="btn btn-primary float-right">View Registrations</button></Link>
             </div>
             <div className="card-body">
               <div className="row">

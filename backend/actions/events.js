@@ -54,6 +54,9 @@ function registerEvent(req, res) {
 }
 
 function getRegistrations(req, res) {
+  let appFilter;
+  if (req.body && req.body.eventId) appFilter = { eventId: req.body.eventId };
+  else appFilter = { participantId: req.user.id };
   Event.findAll({
     attributes: ['name', 'time'],
     include: [{
@@ -63,9 +66,14 @@ function getRegistrations(req, res) {
     }, {
       model: eventRegistration,
       where: {
-        participantId: req.user.id,
+        ...appFilter,
       },
-      attributes: [],
+      include: [{
+        model: User,
+        as: 'participant',
+        attributes: ['name', 'email', 'profile_image'],
+      }],
+      attributes: ['id'],
     }],
   }).then((registrations) => {
     res.send(registrations);

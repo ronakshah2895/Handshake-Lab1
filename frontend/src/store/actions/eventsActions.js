@@ -10,8 +10,9 @@ export const fetchEvents = () => (dispatch) => {
   });
 };
 
-export const fetchRegistrations = () => (dispatch) => {
-  sendPost('events/get_registrations').then((registrations) => {
+export const fetchRegistrations = (eventId = null) => (dispatch) => {
+  const params = eventId ? { eventId } : eventId;
+  sendPost('events/get_registrations', params).then((registrations) => {
     dispatch({
       registrations,
       type: 'FETCH_REGISTRATIONS',
