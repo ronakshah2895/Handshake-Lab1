@@ -35,6 +35,14 @@ class Students extends React.Component {
                   </div>
                   <input type="text" onChange={applyFilter} name="college-filter" className="form-control" placeholder="College" aria-label="Name" aria-describedby="filter-college" />
                 </div>
+                <hr />
+                <h5 className="card-title">Skill</h5>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span role="img" className="input-group-text" aria-label="search" id="filter-skill">&#128269;</span>
+                  </div>
+                  <input type="text" onChange={applyFilter} name="skill-filter" className="form-control" placeholder="Skill" aria-label="Skill" aria-describedby="filter-skill" />
+                </div>
               </div>
             </div>
           </div>

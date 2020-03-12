@@ -15,5 +15,7 @@ export const applyFilter = (ev) => (dispatch) => {
     dispatch({ type: 'FILTER_STUDENTS', nameFilter: value.toLowerCase(), filter: 'name' });
   } else if (name === 'college-filter') {
     dispatch({ type: 'FILTER_STUDENTS', collegeFilter: value.toLowerCase(), filter: 'college' });
+  } else if (name === 'skill-filter') {
+    dispatch({ type: 'FILTER_STUDENTS', skillFilter: value.toLowerCase(), filter: 'skill' });
   }
 };

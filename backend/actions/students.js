@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { User } = require('../models/index');
+const { User, userSkill } = require('../models/index');
 
 function getStudents(req, res) {
   User.findAll({
@@ -8,6 +8,10 @@ function getStudents(req, res) {
       id: { [Op.ne]: req.user.id },
     },
     attributes: ['name', 'email', 'profile_image', 'college'],
+    include: [{
+      model: userSkill,
+      attributes: ['skill'],
+    }],
   }).then((resp) => {
     res.send(resp);
   });
