@@ -16,6 +16,7 @@ import Login from './common/Login/Login';
 import Register from './common/Register/Register';
 import Profile from './common/Profile/Profile';
 import Students from './common/Students/Students';
+import companyEvents from './company/Events/Events';
 import * as authActions from './store/actions/authActions';
 
 class App extends React.Component {
@@ -41,12 +42,13 @@ class App extends React.Component {
 
         { loggedIn && (
           <Switch>
-            { isCompany && (
-              <Route exact path="/" component={companyDashboard} />
-            )}
+            { isCompany && [
+              <Route exact key="1" path="/" component={companyDashboard} />,
+              <Route exact key="2" path="/events" component={companyEvents} />,
+            ]}
             { !isCompany && [
-              <Route exact key="0" path="/" component={userDashboard} />,
-              <Route exact key="1" path="/applications" component={userApplications} />,
+              <Route exact key="1" path="/" component={userDashboard} />,
+              <Route exact key="2" path="/applications" component={userApplications} />,
             ]}
             <Route exact path="/students" component={Students} />
             <Route exact path="/profile" component={Profile} />

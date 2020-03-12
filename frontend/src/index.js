@@ -9,10 +9,11 @@ import authReducer from './store/reducers/authReducer';
 import profileReducer from './store/reducers/profileReducer';
 import studentsReducer from './store/reducers/studentsReducer';
 import jobsReducer from './store/reducers/jobsReducer';
+import eventsReducer from './store/reducers/eventsReducer';
 import App from './App';
 
 const rootReducer = combineReducers({
-  authReducer, profileReducer, studentsReducer, jobsReducer,
+  authReducer, profileReducer, studentsReducer, jobsReducer, eventsReducer,
 });
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

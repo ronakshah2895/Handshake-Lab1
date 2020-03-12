@@ -19,7 +19,7 @@ function postJob(req, res) {
       deadline,
       createdAt,
       description,
-      creator: { name: req.user.name },
+      creator: { name: req.user.name, email: req.user.email },
     });
   });
 }

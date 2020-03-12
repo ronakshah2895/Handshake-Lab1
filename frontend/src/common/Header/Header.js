@@ -30,6 +30,9 @@ function Header(props) {
               <NavLink exact className="nav-link" activeClassName="active" to="/students">Students</NavLink>
             </li>
             <li className="nav-item">
+              <NavLink exact className="nav-link" activeClassName="active" to="/events">Events</NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink exact className="nav-link" activeClassName="active" to="/profile">Profile</NavLink>
             </li>
             <li className="nav-item">

@@ -10,7 +10,8 @@ const sequelize = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PASSWORD, {
 });
 const userModels = require('./user')(sequelize, Sequelize);
 const jobModels = require('./job')(sequelize, Sequelize, userModels.User);
+const eventModels = require('./event')(sequelize, Sequelize, userModels.User);
 
 sequelize.sync({ alter: true });
 
-module.exports = { ...userModels, ...jobModels };
+module.exports = { ...userModels, ...jobModels, ...eventModels };
