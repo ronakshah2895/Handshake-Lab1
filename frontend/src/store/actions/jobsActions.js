@@ -36,6 +36,13 @@ export const updateSelected = (selectedJob) => (dispatch) => {
   dispatch({ selectedJob, type: 'UPDATE_SELECTED' });
 };
 
+export const updateAppStatus = (ev, appId) => (dispatch) => {
+  const status = ev.target.value;
+  sendPost('jobs/update_app_status', { status, appId }).then(() => {
+    dispatch({ status, appId, type: 'UPDATE_APP_STATUS' });
+  });
+};
+
 export const applyJob = (ev) => (dispatch) => {
   const { target } = ev;
   sendPost('jobs/apply_job', target).then((jobId) => {

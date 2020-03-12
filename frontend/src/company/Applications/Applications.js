@@ -11,17 +11,24 @@ class Applications extends React.Component {
   }
 
   render() {
-    const { applications, resumePreview, updatePreviewResume } = this.props;
+    const {
+      applications, resumePreview, updatePreviewResume, updateAppStatus,
+    } = this.props;
     return (
       <div className="APPLICATIONS_C container">
-        { applications.map((application, index) => (
+        { applications.length && applications[0].job_applications.map((application, index) => (
           <div className="card" key={`application-${index + 1}`}>
             <div className="card-body">
-              <img className="card-img" src={process.env.REACT_APP_SERVER_ROOT + application.job_applications[0].applicant.profile_image} alt="" />
+              <img className="card-img" src={process.env.REACT_APP_SERVER_ROOT + application.applicant.profile_image} alt="" />
               <div className="card-title">
-                <Link to={`/profile/${application.job_applications[0].applicant.email}`}><h5>{application.job_applications[0].applicant.name}</h5></Link>
-                <button type="button" onClick={updatePreviewResume.bind(null, application.job_applications[0].resume)} className="btn btn-primary" data-toggle="modal" data-target="#resumePreview">Preview Resume</button>
+                <Link to={`/profile/${application.applicant.email}`}><h5>{application.applicant.name}</h5></Link>
+                <button type="button" onClick={updatePreviewResume.bind(null, application.resume)} className="btn btn-primary" data-toggle="modal" data-target="#resumePreview">Preview Resume</button>
               </div>
+              <select className="form-control status-select" onChange={updateAppStatus.bind(null, application.id)} value={application.status} id="updateAppStatus">
+                <option>Pending</option>
+                <option>Reviewed</option>
+                <option>Declined</option>
+              </select>
             </div>
           </div>
         ))}
@@ -59,6 +66,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updatePreviewResume: (resume) => {
     dispatch(jobsActions.updatePreviewResume(resume));
+  },
+  updateAppStatus: (appId, ev) => {
+    dispatch(jobsActions.updateAppStatus(ev, appId));
   },
 });
 

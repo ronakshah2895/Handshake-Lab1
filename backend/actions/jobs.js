@@ -88,13 +88,25 @@ function getApplications(req, res) {
         as: 'applicant',
         attributes: ['name', 'email', 'profile_image'],
       }],
-      attributes: ['status', 'createdAt', 'resume'],
+      attributes: ['id', 'status', 'createdAt', 'resume'],
     }],
   }).then((applications) => {
     res.send(applications);
   });
 }
 
+function updateAppStatus(req, res) {
+  jobApplication.update({
+    status: req.body.status,
+  }, {
+    where: {
+      id: req.body.appId,
+    },
+  }).then(() => {
+    res.send(req.body.appId);
+  });
+}
+
 module.exports = {
-  postJob, getJobs, applyJob, getApplications,
+  postJob, getJobs, applyJob, getApplications, updateAppStatus,
 };

@@ -23,3 +23,9 @@
   height: 80vh;
   width: 100%;
 }
+
+.APPLICATIONS_C .status-select {
+  float: right;
+  display: inline-block;
+  max-width: 200px;
+}

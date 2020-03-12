@@ -82,6 +82,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         resumePreview: action.resume,
       };
+    case 'UPDATE_APP_STATUS':
+      return {
+        ...state,
+        applications: [{
+          ...state.applications[0],
+          job_applications: state.applications[0].job_applications.map((application) => {
+            if (application.id === action.appId) {
+              return {
+                ...application,
+                status: action.status,
+              };
+            }
+            return application;
+          }),
+        }],
+      };
     default:
       return {
         ...state,
