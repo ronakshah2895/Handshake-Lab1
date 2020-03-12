@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as jobActions from '../../store/actions/jobsActions';
 import './Dashboard.css';
 
@@ -21,7 +22,7 @@ class Dashboard extends React.Component {
                 <h5>{job.title}</h5>
                 <span>{job.creator.name}</span>
               </div>
-              <button type="button" className="btn btn-primary float-right">View Applications</button>
+              <Link to={`applications/${job.id}`}><button type="button" className="btn btn-primary float-right">View Applications</button></Link>
             </div>
             <div className="card-body">
               <div className="row">

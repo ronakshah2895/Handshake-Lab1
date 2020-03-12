@@ -13,6 +13,7 @@ const initialState = {
     Declined: true,
   },
   selectedJob: 0,
+  resumePreview: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -75,6 +76,11 @@ const reducer = (state = initialState, action) => {
           ...state.statusFilter,
           [action.filter]: !state.statusFilter[action.filter],
         },
+      };
+    case 'UPDATE_PREVIEW_RESUME':
+      return {
+        ...state,
+        resumePreview: action.resume,
       };
     default:
       return {

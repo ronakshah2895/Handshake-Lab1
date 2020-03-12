@@ -10,8 +10,9 @@ export const fetchJobs = () => (dispatch) => {
   });
 };
 
-export const fetchApplications = () => (dispatch) => {
-  sendPost('jobs/get_applications').then((applications) => {
+export const fetchApplications = (jobId = null) => (dispatch) => {
+  const params = jobId ? { jobId } : jobId;
+  sendPost('jobs/get_applications', params).then((applications) => {
     dispatch({
       applications,
       type: 'FETCH_APPLICATIONS',
@@ -51,4 +52,8 @@ export const toggleStatusFilter = (filter) => (dispatch) => {
 export const applyFilter = (ev, type) => (dispatch) => {
   const filter = { [type]: ev.target.value };
   dispatch({ filter, type: 'APPLY_FILTER' });
+};
+
+export const updatePreviewResume = (resume) => (dispatch) => {
+  dispatch({ resume, type: 'UPDATE_PREVIEW_RESUME' });
 };

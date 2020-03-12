@@ -69,6 +69,9 @@ function applyJob(req, res) {
 }
 
 function getApplications(req, res) {
+  let appFilter;
+  if (req.body && req.body.jobId) appFilter = { jobId: req.body.jobId };
+  else appFilter = { applicantId: req.user.id };
   Job.findAll({
     attributes: ['title'],
     include: [{
@@ -78,9 +81,14 @@ function getApplications(req, res) {
     }, {
       model: jobApplication,
       where: {
-        applicantId: req.user.id,
+        ...appFilter,
       },
-      attributes: ['status', 'createdAt'],
+      include: [{
+        model: User,
+        as: 'applicant',
+        attributes: ['name', 'email', 'profile_image'],
+      }],
+      attributes: ['status', 'createdAt', 'resume'],
     }],
   }).then((applications) => {
     res.send(applications);
