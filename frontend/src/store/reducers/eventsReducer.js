@@ -1,5 +1,7 @@
 const initialState = {
   events: [],
+  filteredEvents: [],
+  selectedEvent: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -8,11 +10,22 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         events: [...action.events],
+        filteredEvents: [...action.events],
       };
     case 'CREATE_EVENT':
       return {
         ...state,
         events: state.events.concat([action.event]),
+      };
+    case 'UPDATE_SELECTED_EVENT':
+      return {
+        ...state,
+        selectedEvent: action.selectedEvent,
+      };
+    case 'REGISTER_EVENT':
+      return {
+        ...state,
+        filteredEvents: state.events.filter((event) => event.id !== action.eventId),
       };
     default:
       return {

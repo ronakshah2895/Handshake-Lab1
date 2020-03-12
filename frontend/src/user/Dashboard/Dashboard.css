@@ -1,3 +1,7 @@
+.DASHBOARD_U .card {
+  margin: 8px 0;
+}
+
 .DASHBOARD_U .filter-row {
   margin: 0 -4px;
 }

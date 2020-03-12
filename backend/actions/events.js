@@ -22,7 +22,7 @@ function createEvent(req, res) {
 function getEvents(req, res) {
   let filterObj;
   if (req.user.is_company) filterObj = { where: { creatorId: req.user.id } };
-  else filterObj = { where: literal('job_applications.id IS NULL') };
+  else filterObj = { where: literal('event_registrations.id IS NULL') };
   Event.findAll({
     ...filterObj,
     attributes: ['id', 'name', 'location', 'time', 'description'],
@@ -44,6 +44,15 @@ function getEvents(req, res) {
   });
 }
 
+function registerEvent(req, res) {
+  eventRegistration.create({
+    eventId: req.body.eventId,
+    participantId: req.user.id,
+  }).then(() => {
+    res.send(req.body.eventId);
+  });
+}
+
 module.exports = {
-  createEvent, getEvents,
+  createEvent, getEvents, registerEvent,
 };
