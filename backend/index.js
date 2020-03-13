@@ -10,7 +10,7 @@ const port = 3001;
 dotenv.config();
 
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: [process.env.CLIENT_ROOT],
   credentials: true,
 }));
 app.use(session({

@@ -12,6 +12,6 @@ const userModels = require('./user')(sequelize, Sequelize);
 const jobModels = require('./job')(sequelize, Sequelize, userModels.User);
 const eventModels = require('./event')(sequelize, Sequelize, userModels.User);
 
-sequelize.sync({ alter: true });
+sequelize.sync();
 
 module.exports = { ...userModels, ...jobModels, ...eventModels };
