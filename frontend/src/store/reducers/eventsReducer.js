@@ -1,6 +1,7 @@
 const initialState = {
   events: [],
   filteredEvents: [],
+  nameFilter: '',
   registrations: [],
   selectedEvent: 0,
 };
@@ -32,6 +33,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         registrations: [...action.registrations],
+      };
+    case 'APPLY_EVENT_FILTERS':
+      return {
+        ...state,
+        nameFilter: action.nameFilter,
+        filteredEvents:
+          state.events.filter((event) => event.name.toLowerCase().includes(action.nameFilter)),
       };
     default:
       return {

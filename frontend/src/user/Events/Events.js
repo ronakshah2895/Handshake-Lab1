@@ -12,10 +12,13 @@ class Events extends React.Component {
 
   render() {
     const {
-      events, selectedEvent, updateSelected, registerEvent,
+      events, selectedEvent, updateSelected, registerEvent, applyFilter,
     } = this.props;
     return (
       <div className="EVENTS_U container">
+        <div className="mt-2">
+          <input type="text" className="col form-control" onChange={applyFilter} id="filterName" placeholder="Name" />
+        </div>
         { events.map((event, index) => (
           <div className="card" key={`event-${index + 1}`}>
             <div className="card-header">
@@ -77,6 +80,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updateSelected: (selectedEvent) => {
     dispatch(eventActions.updateSelected(selectedEvent));
+  },
+  applyFilter: (ev) => {
+    dispatch(eventActions.applyFilter(ev));
   },
 });
 

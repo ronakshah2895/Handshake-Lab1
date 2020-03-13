@@ -44,3 +44,8 @@ export const registerEvent = (ev) => (dispatch) => {
 export const updateSelected = (selectedEvent) => (dispatch) => {
   dispatch({ selectedEvent, type: 'UPDATE_SELECTED_EVENT' });
 };
+
+export const applyFilter = (ev) => (dispatch) => {
+  const nameFilter = ev.target.value.toLowerCase();
+  dispatch({ nameFilter, type: 'APPLY_EVENT_FILTERS' });
+};
