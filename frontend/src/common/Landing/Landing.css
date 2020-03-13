@@ -1,0 +1,23 @@
+.LANDING .image-row {
+  height: calc(100vh - 60px);
+}
+
+.LANDING .image-col {
+  position: relative;
+}
+
+.LANDING .landing-img {
+  position: absolute;
+  width: 100%;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.LANDING .landing-img-text {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+  margin-bottom: 0;
+}

@@ -1,0 +1,16 @@
+.REGISTRATIONS_C .card {
+  margin: 8px 0;
+}
+
+.REGISTRATIONS_C .card-img {
+  height: 75px;
+  width: 75px;
+  border-radius: 25%;
+  margin-right: 16px;
+}
+
+.REGISTRATIONS_C .card-title {
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+}

@@ -1,0 +1,31 @@
+.APPLICATIONS_C .card {
+  margin: 8px 0;
+}
+
+.APPLICATIONS_C .card-img {
+  height: 75px;
+  width: 75px;
+  border-radius: 25%;
+  margin-right: 16px;
+}
+
+.APPLICATIONS_C .card-title {
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.APPLICATIONS_C #resumePreview .modal-dialog {
+  max-width: 80vw;
+}
+
+.APPLICATIONS_C #resumePreview .pdf-preview {
+  height: 80vh;
+  width: 100%;
+}
+
+.APPLICATIONS_C .status-select {
+  float: right;
+  display: inline-block;
+  max-width: 200px;
+}

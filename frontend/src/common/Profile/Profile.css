@@ -1,0 +1,72 @@
+.PROFILE .card {
+  margin: 8px 0;
+}
+
+.PROFILE .form-control {
+  margin: 4px;
+}
+
+.PROFILE .editIcon {
+  position: absolute;
+  right: 4px;
+  top: 0;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.PROFILE .objectiveEdit {
+  float: right;
+  cursor: pointer;
+}
+
+.PROFILE .profile-image-input {
+  display: none;
+}
+
+.PROFILE .image-container {
+  position: relative;
+}
+
+.PROFILE .image-hover-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.PROFILE .image-hover-background:hover {
+  opacity: 0.5;
+  background-color: #fff;
+}
+
+.PROFILE .card-body {
+  position: relative;
+}
+
+.PROFILE .card-body .badge.badge-pill {
+  margin: 4px;
+  font-size: 14px;
+}
+
+.PROFILE .card-body .badge.badge-pill .remove-icon {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.PROFILE .skill-form #inputSkill {
+  display: inline-block;
+  width: calc(100% - 85px);
+  vertical-align: middle;
+}
+
+.PROFILE .add-skill-error{
+  font-size: 12px;
+  position: relative;
+  bottom: 8px;
+  left: 4px;
+}
+
+.PROFILE .ed-del-icon {
+  cursor: pointer;
+  float: right;
+}

@@ -100,5 +100,14 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
+#profile images
+backend/public/images/profile_images
+
+#resumes
+backend/public/resumes
+
 # TernJS port file
 .tern-port
+
+# MacOS folder attribute file
+.DS_Store
