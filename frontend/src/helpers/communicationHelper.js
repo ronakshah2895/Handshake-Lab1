@@ -33,6 +33,6 @@ function get(route) {
   });
 }
 
-module.exports = {
+export {
   sendPost, get,
 };
