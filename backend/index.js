@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const multer = require('multer');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const passport = require('passport');
@@ -21,6 +22,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.json());
 app.use(multer().any());
 app.use(express.static('public'));
 
